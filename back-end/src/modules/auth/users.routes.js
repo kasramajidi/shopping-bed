@@ -12,4 +12,8 @@ UserRouter
     .route("/register")
     .post(UserController.register)
 
+UserRouter
+    .route("/login")
+    .post(UserController.login)
+
 module.exports = UserRouter;

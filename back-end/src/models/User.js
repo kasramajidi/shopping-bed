@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const CounterId = require("./../utils/CounterId")
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcryptjs")
 const schema = new mongoose.Schema({
     id: {
         type: Number,
@@ -60,17 +60,6 @@ schema.pre("save", async (next) => {
     }
 })
 
-//* Convert password to hash
-schema.pre("save", async function (next){
-    try{
-        if (this.isModified("password")){
-            this.password = await bcrypt.hash(this.password, 10);
-        }
-        next()
-    }catch(err){
-        next(err)
-    }
-})
 
 const UserModel = mongoose.model("User", schema);
 
