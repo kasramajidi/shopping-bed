@@ -20,4 +20,8 @@ UserRouter
     .route("/guest")
     .post(auth, UserController.guest)
 
+UserRouter
+    .route("/logout")
+    .post(UserController.logout)
+
 module.exports = UserRouter;
