@@ -45,10 +45,85 @@
             "200": {
                 "description": "successfully register"
             },
-            "401":{
+            "400":{
                 "description": "request body is not valid"
-            }
+            },
+            "500":{
+              "description": "Internal Server Error"
+          }
         }
+      }
+    },
+    "/auth/login": {
+      "post":{
+        "tags": ["Auth"],
+        "summary": "This api for users login in site",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "email": "kasra@email.com",
+                  "password": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200": {
+              "description": "successfully login"
+          },
+          "400":{
+              "description": "Invalid email or password."
+          },
+          "500":{
+            "description": "Internal Server Error"
+        }
+      }
+      }
+    },
+    "/auth/guest": {
+      "post":{
+        "tags": ["Auth"],
+        "summary": "This api for users guest in site",
+        "responses":{
+          "200": {
+              "description": "successfully guest"
+          },
+          "500":{
+            "description": "Internal Server Error"
+        }
+      }
+      }
+    },
+    "/auth/logout": {
+      "post":{
+        "tags": ["Auth"],
+        "summary": "This api for users logout site",
+        "responses":{
+          "200": {
+              "description": "successfully logout"
+          },
+          "500":{
+            "description": "Internal Server Error"
+        }
+      }
+      }
+    },
+    "/auth/userAll": {
+      "get":{
+        "tags": ["Auth"],
+        "summary": "This api for get all user",
+        "responses":{
+          "200": {
+              "description": "get all user"
+          },
+          "500":{
+            "description": "Internal Server Error"
+        }
+      }
       }
     }
   }

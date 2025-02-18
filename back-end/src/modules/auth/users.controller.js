@@ -3,8 +3,13 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const { loginValidationSchema, registerValidationSchema } = require("./auth.validator")
 exports.getAll = async (req, res) => {
-    const user = await UserModel.findOne({}).lean()
-    return res.status(200).json(user);
+    try{
+        const user = await UserModel.findOne({}).lean()
+        return res.status(200).json(user);
+    }catch (err){
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
 }
 
 
@@ -60,6 +65,7 @@ exports.register = async (req, res) => {
         })
     } catch (err) {
         console.log(err);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 }
 
