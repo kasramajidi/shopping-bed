@@ -10,12 +10,14 @@ UserRouter
 
 UserRouter
     .route("/register")
-    .post(UserController.register)
+    .post(auth, UserController.register)
 
 UserRouter
     .route("/login")
-    .post(UserController.login)
+    .post(auth, UserController.login)
 
-
+UserRouter
+    .route("/guest")
+    .post(auth, UserController.guest)
 
 module.exports = UserRouter;
