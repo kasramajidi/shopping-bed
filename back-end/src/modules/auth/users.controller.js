@@ -34,7 +34,7 @@ exports.register = async (req, res) => {
         const newUser = await UserModel.create({
             username,
             email,
-            password: hashPassword
+            password: hashPassword,
         })
 
         const token = jwt.sign(
@@ -46,14 +46,13 @@ exports.register = async (req, res) => {
         newUser.token = token;
         await newUser.save()
 
-        res.status(201).json({
+        res.status(200).json({
             message: "User registered successfully!",
             token,
             newUser
         })
     } catch (err) {
         console.log(err);
-        res.status(500).json({ message: "Internal Server Error" });
     }
 }
 
@@ -94,6 +93,13 @@ exports.login = async (req, res) => {
         // ذخیره توکن جدید در دیتابیس
         await UserModel.findByIdAndUpdate(user._id, { token: newtoken });
 
+        res.cookie("token", newtoken, {
+            httpOnly: true, 
+            secure: process.env.MODE_ENV === "production",
+            sameSite: "Strict", 
+            maxAge: 7 * 24 * 60 * 60 * 1000, // ۷ روز
+        });
+
         res.status(200).json({
             message: "Login successful!",
             user: {
@@ -108,3 +114,5 @@ exports.login = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 }
+
+   

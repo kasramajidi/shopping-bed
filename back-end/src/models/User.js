@@ -1,11 +1,6 @@
 const mongoose = require("mongoose")
-const CounterId = require("./../utils/CounterId")
 const bcrypt = require("bcryptjs")
 const schema = new mongoose.Schema({
-    id: {
-        type: Number,
-        unique: true,
-    },
     username: {
         type: String,
         required: true
@@ -41,24 +36,8 @@ const schema = new mongoose.Schema({
         default: null 
     },
 
-})
+}, {timestamps: true})
 
-//* Before the ID is saved
-schema.pre("save", async (next) => {
-    try {
-        if (!this.id) {
-            const counter = await CounterId.findOneAndUpdate(
-                { name: "user_id" },
-                { $inc: { value: 1 } },
-                { new: true, upsert: true }
-            );
-            this.id = counter.value;
-        }
-        next()
-    } catch (err) {
-        next(err)
-    }
-})
 
 
 const UserModel = mongoose.model("User", schema);
