@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser")
 const cors = require("cors")
 const UserRouter = require("./modules/auth/users.routes")
 const ApiRouter = require("./modules/api/swagger.routes")
+const postRouter = require("./modules/posts/posts.routes")
 
 //* BodyParser
 app.use(express.json());
@@ -15,6 +16,7 @@ app.use(cors())
 //* Routes
 app.use("/auth", UserRouter)
 app.use("/api", ApiRouter)
+app.use("/posts", postRouter)
 
 //* 404 Error Handler
 app.use((req, res) => {
