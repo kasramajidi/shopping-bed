@@ -10,7 +10,7 @@ UserRouter
 
 UserRouter
     .route("/register")
-    .post(auth, UserController.register)
+    .post(UserController.register)
 
 UserRouter
     .route("/login")

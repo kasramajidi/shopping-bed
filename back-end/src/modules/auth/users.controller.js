@@ -1,7 +1,6 @@
 const UserModel = require("../../models/User")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
-const { loginValidationSchema, registerValidationSchema } = require("./auth.validator")
 exports.getAll = async (req, res) => {
     try{
         const user = await UserModel.findOne({}).lean()
@@ -17,17 +16,36 @@ exports.register = async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
-        await registerValidationSchema.validate(
-            {
-                username,
-                email,
-                password
-            },
-            {
-                abortEarly: false
-            }
-        )
+        if (!username || !email || !password) {
+            return res.status(400).json({
+                message: "Please enter username, email and password"
+            })
+        }
 
+        const usernameRegex = /^[a-z0-9_-]{3,15}$/
+
+        if (!usernameRegex.test(username)){
+            return res.status(401).json({
+                message: "Username must be at least 3 chars long"
+            })
+        }
+
+        const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
+
+        if (!emailRegex.test(email)){
+            return res.status(402).json({
+                message: "The email is invalid"
+            })
+        }
+
+        const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,15}$/
+
+        if (!passwordRegex.test(password)){
+            return res.status(403).json({
+                message: "The password is invalid"
+            })
+        }
+        
         const emailUser = await UserModel.findOne({ email })
 
         if (emailUser) {
@@ -74,16 +92,27 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body
 
-        await loginValidationSchema.validate(
-            {
-                email,
-                password
-            },
-            {
-                abortEarly: false
-            }
-        )
+        if (!email || !password) {
+            return res.status(400).json({
+                message: "Please enter username, email and password"
+            })
+        }
 
+        const emailRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/
+
+        if (!emailRegex.test(email)){
+            return res.status(402).json({
+                message: "The email is invalid"
+            })
+        }
+
+        const passwordRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,15}$/
+
+        if (!passwordRegex.test(password)){
+            return res.status(403).json({
+                message: "The password is invalid"
+            })
+        }
         const user = await UserModel.findOne({ email });
 
         if (!user) {
