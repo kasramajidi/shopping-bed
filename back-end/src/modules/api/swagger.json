@@ -41,21 +41,30 @@
             }
           }
         },
-        "responses":{
-            "200": {
-                "description": "successfully register"
-            },
-            "400":{
-                "description": "request body is not valid"
-            },
-            "500":{
-              "description": "Internal Server Error"
+        "responses": {
+          "200": {
+            "description": "successfully register"
+          },
+          "400": {
+            "description": "Please enter username, email and password"
+          },
+          "401": {
+            "description": "Username must be at least 3 chars long"
+          },
+          "402": {
+            "description": "The email is invalid"
+          },
+          "403": {
+            "description": "The password is invalid"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
     "/auth/login": {
-      "post":{
+      "post": {
         "tags": ["Auth"],
         "summary": "This api for users login in site",
         "requestBody": {
@@ -71,59 +80,68 @@
             }
           }
         },
-        "responses":{
+        "responses": {
           "200": {
-              "description": "successfully login"
+            "description": "successfully register"
           },
-          "400":{
-              "description": "Invalid email or password."
+          "400": {
+            "description": "Please enter username, email and password"
           },
-          "500":{
+          "401": {
+            "description": "Username must be at least 3 chars long"
+          },
+          "402": {
+            "description": "The email is invalid"
+          },
+          "403": {
+            "description": "The password is invalid"
+          },
+          "500": {
             "description": "Internal Server Error"
+          }
         }
-      }
       }
     },
     "/auth/guest": {
-      "post":{
+      "post": {
         "tags": ["Auth"],
         "summary": "This api for users guest in site",
-        "responses":{
+        "responses": {
           "200": {
-              "description": "successfully guest"
+            "description": "successfully guest"
           },
-          "500":{
+          "500": {
             "description": "Internal Server Error"
+          }
         }
-      }
       }
     },
     "/auth/logout": {
-      "post":{
+      "post": {
         "tags": ["Auth"],
         "summary": "This api for users logout site",
-        "responses":{
+        "responses": {
           "200": {
-              "description": "successfully logout"
+            "description": "successfully logout"
           },
-          "500":{
+          "500": {
             "description": "Internal Server Error"
+          }
         }
-      }
       }
     },
     "/auth/userAll": {
-      "get":{
+      "get": {
         "tags": ["Auth"],
         "summary": "This api for get all user",
-        "responses":{
+        "responses": {
           "200": {
-              "description": "get all user"
+            "description": "get all user"
           },
-          "500":{
+          "500": {
             "description": "Internal Server Error"
+          }
         }
-      }
       }
     }
   }
