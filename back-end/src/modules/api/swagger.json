@@ -230,6 +230,35 @@
           }
         ]
       }
+    },
+    "/posts/getone/:title": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "This api for get one post",
+        "responses": {
+          "200": {
+            "description": "This post has get one post"
+          },
+          "401": {
+            "description": "Title is required"
+          },
+          "404": {
+            "description": "No posts found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "title",
+            "in": "title",
+            "required": true,
+            "type": "string",
+            "description": "You have to enter the title to show you one by one"
+          }
+        ]
+      }
     }
   }
 }

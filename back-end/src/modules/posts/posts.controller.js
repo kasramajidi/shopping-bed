@@ -115,7 +115,7 @@ exports.getOne = async (req, res) => {
         const {title} = req.params
 
         if (!title || title.length < 1){
-            return res.status(201).json({
+            return res.status(401).json({
                 message: "Title is required"
             })
         }
