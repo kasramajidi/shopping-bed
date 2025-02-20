@@ -15,7 +15,7 @@ const schema = new mongoose.Schema({
     },
     featured: {
         type: Boolean,
-        default: true
+        default: false,
     },
     category: {
         type: String,

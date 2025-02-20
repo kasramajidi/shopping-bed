@@ -259,6 +259,58 @@
           }
         ]
       }
+    },
+    "/posts/getpost?featured=true": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "This api for featured = true",
+        "responses": {
+          "200": {
+            "description": "This post featured = true"
+          },
+          "400": {
+            "description": "No products found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "featured",
+            "in": "featured",
+            "required": true,
+            "type": "string",
+            "description": "featured comes as a query that is equal to true or false"
+          }
+        ]
+      }
+    },
+    "/posts/getpost?featured=false": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "This api for featured = false",
+        "responses": {
+          "200": {
+            "description": "This post  featured = false"
+          },
+          "400": {
+            "description": "No products found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "featured",
+            "in": "featured",
+            "required": true,
+            "type": "string",
+            "description": "featured comes as a query that is equal to true or false"
+          }
+        ]
+      }
     }
   }
 }

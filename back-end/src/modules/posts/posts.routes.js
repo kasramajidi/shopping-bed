@@ -24,4 +24,8 @@ postRouter
 postRouter
     .route("/getone/:title")
     .get(postController.getOne)
+
+postRouter
+    .route("/getpost")
+    .get(postController.getfeatured)
 module.exports = postRouter;
