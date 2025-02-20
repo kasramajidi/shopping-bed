@@ -103,7 +103,30 @@ exports.remove = async (req, res) => {
         res.status(200).json({
             message: "This post has been successfully deleted"
         })
-        
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+exports.getOne = async (req, res) => {
+    try {
+        const {title} = req.params
+
+        if (!title || title.length < 1){
+            return res.status(201).json({
+                message: "Title is required"
+            })
+        }
+
+        const getOne = await PostModel.find({title: { $regex: title, $options: "i" }})
+
+        if (getOne.length === 0) {
+            return res.status(404).json({ message: "No posts found" });
+        }
+
+        res.status(200).json(getOne)
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error" });

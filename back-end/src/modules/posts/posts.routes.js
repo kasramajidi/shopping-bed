@@ -20,4 +20,8 @@ postRouter
 postRouter
     .route("/remove/:id")
     .delete(auth, postController.remove)
+
+postRouter
+    .route("/getone/:title")
+    .get(postController.getOne)
 module.exports = postRouter;
