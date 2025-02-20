@@ -188,6 +188,48 @@
           }
         }
       }
+    },
+    "/posts/all-Post": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "This api for get all post",
+        "responses": {
+          "200": {
+            "description": "This api is for giving all their posts and the number of pages"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/posts/remove/:id": {
+      "delete": {
+        "tags": ["Posts"],
+        "summary": "This api for remove post",
+        "responses": {
+          "200": {
+            "description": "This post has been successfully deleted"
+          },
+          "402": {
+            "description": "Invalid ID format"
+          },
+          "404": {
+            "description": "Post not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageID",
+            "in": "id",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
     }
   }
 }

@@ -1,4 +1,5 @@
 const PostModel = require("./../../models/Post")
+const mongoose = require("mongoose")
 
 exports.createPost = async (req, res) => {
     try {
@@ -51,6 +52,58 @@ exports.createPost = async (req, res) => {
         res.status(200).json(newPost);
 
 
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+exports.getAll = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1
+        const pageSize = parseInt(req.query.pageSize) || 10
+        const skip = (page - 1) * pageSize
+
+        const post = await PostModel.find({}).skip(skip).limit(pageSize)
+
+        const countPost = await PostModel.countDocuments()
+
+        const pageCount = Math.ceil(countPost / pageSize)
+
+        res.status(200).json({
+            attributes: post,
+            meta: {
+                pagination: {
+                    page,
+                    pageSize,
+                    pageCount,
+                    countPost
+                }
+            }
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+exports.remove = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(402).json({ message: "Invalid ID format" });
+        }
+        const removePost = await PostModel.findOneAndDelete({ _id: id })
+
+        if (!removePost) {
+            return res.status(404).json({ message: "Post not found" });
+        }
+
+        res.status(200).json({
+            message: "This post has been successfully deleted"
+        })
+        
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error" });

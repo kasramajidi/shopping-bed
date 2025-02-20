@@ -13,5 +13,11 @@ postRouter
     .route('/create-post')
     .post(auth, uploder.single("image"), postController.createPost)
 
+postRouter
+    .route("/all-Post")
+    .get(postController.getAll)
 
+postRouter
+    .route("/remove/:id")
+    .delete(auth, postController.remove)
 module.exports = postRouter;
