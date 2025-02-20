@@ -20,6 +20,10 @@
     {
       "name": "Auth",
       "description": "This route for login and register and get all user"
+    },
+    {
+      "name": "Posts",
+      "description": "This route for create post and get post"
     }
   ],
   "paths": {
@@ -137,6 +141,47 @@
         "responses": {
           "200": {
             "description": "get all user"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/posts/create-post": {
+      "post": {
+        "tags": ["Posts"],
+        "summary": "This api for create new post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "title": "Lounge Chair",
+                  "company": "Luxora",
+                  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge",
+                  "category": "Chairs",
+                  "price": "25999",
+                  "colors": ["#FF5733", "#33FF57", "#3366FF"],
+                  "image": "input image"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Show the post that has just been created with all the information"
+          },
+          "400": {
+            "description": "Please enter title, company, description, category, image, price, colors"
+          },
+          "401": {
+            "description": "Media is required !!"
+          },
+          "402": {
+            "description": "tiltle is repetitive"
           },
           "500": {
             "description": "Internal Server Error"

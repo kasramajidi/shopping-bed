@@ -7,6 +7,7 @@ const ApiRouter = require("./modules/api/swagger.routes")
 const postRouter = require("./modules/posts/posts.routes")
 
 //* BodyParser
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //* cookie parser 

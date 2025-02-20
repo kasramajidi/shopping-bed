@@ -31,8 +31,6 @@ const schema = new mongoose.Schema({
             type: String,
             required: true
         },
-        
-        required: true
     },
     price:{
         type: String,
@@ -40,7 +38,7 @@ const schema = new mongoose.Schema({
     },
     shipping: {
         type: Boolean,
-        default: true
+        default: false
     },
     colors: {
         type: [String],
