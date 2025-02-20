@@ -311,6 +311,64 @@
           }
         ]
       }
+    },
+    "/posts/filterpost?search=s&category=all&company=all&order=a-z&price=8499&shipping=true": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "Filter, search and sort products",
+        "responses": {
+          "200": {
+            "description": "Send all parameters"
+          },
+          "404": {
+            "description": "not found post"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "parameters filter",
+            "in": "filter",
+            "required": true,
+            "type": "string",
+            "description": "Send all parameters Filter, search and sort products"
+          }
+        ]
+      }
+    },
+    "/posts/update-post":{
+      "put": {
+        "tags": ["Posts"],
+        "summary": "This api for update post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "title": "Lounge Chair",
+                  "company": "Luxora",
+                  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge",
+                  "category": "Chairs",
+                  "price": "25999",
+                  "colors": ["#FF5733", "#33FF57", "#3366FF"],
+                  "image": "input image"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "This post has been successfully update"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   }
 }

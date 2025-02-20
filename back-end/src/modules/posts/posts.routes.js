@@ -28,4 +28,12 @@ postRouter
 postRouter
     .route("/getpost")
     .get(postController.getfeatured)
+
+postRouter
+    .route("/filterpost")
+    .get(postController.filterPost)
+
+postRouter
+    .route("/update-post")
+    .put(auth, postController.update)
 module.exports = postRouter;

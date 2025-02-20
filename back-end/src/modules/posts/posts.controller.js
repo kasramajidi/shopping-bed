@@ -139,15 +139,136 @@ exports.getfeatured = async (req, res) => {
         let { featured } = req.query
 
 
-        const post = await PostModel.find(featured !== undefined ? {featured} : {})
+        const post = await PostModel.find(featured !== undefined ? { featured } : {})
 
-        if (!post){
+        if (!post) {
             return res.status(400).json({
                 message: "No products found"
             })
         }
 
         res.status(200).json(post)
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+exports.filterPost = async (req, res) => {
+    try {
+        const {
+            search,
+            category,
+            company,
+            order,
+            price,
+            shipping,
+            page,
+            limit
+        } = req.query
+
+        let queryObject = {};
+
+        // filter search
+        if (search) {
+            queryObject.title = { $regex: search, $options: "i" };
+        }
+
+        // category
+        if (category && category !== "All") {
+            queryObject.category = category
+        }
+
+        // company
+
+        if (company && company !== "All") {
+            queryObject.company = company
+        }
+
+        // price
+
+        if (price) {
+            queryObject.price = { $lte: Number(price) }
+        }
+
+        // free
+
+        if (shipping) {
+            queryObject.shipping = shipping === "true"
+        }
+
+        // order
+
+        let sortOrder = {};
+        if (order) {
+            if (order === "a-z") sortOrder.title = 1;
+            if (order === "z-a") sortOrder.title = -1;
+            if (order === "low") sortOrder.price = 1;
+            if (order === "high") sortOrder.price = -1;
+        }
+
+        // arrangement
+
+        let pagenum = parseInt(page) || 1;
+        let limitnum = parseInt(limit) || 10;
+        let skip = (pagenum - 1) * limitnum;
+
+        // find post
+
+        const post = await PostModel.find(queryObject).sort(sortOrder).skip(skip).limit(limit)
+
+        if (!post) {
+            return res.status(404).json({
+                message: "not found post"
+            })
+        }
+
+        const allPost = await PostModel.countDocuments(queryObject)
+        const totalPage = Math.ceil(allPost / limit)
+
+        res.status(200).json({
+            currentPage: page,
+            totalPage,
+            allPost,
+            post
+        })
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+exports.update = async (req, res) => {
+    try{
+        const {
+            title,
+            company,
+            description,
+            category,
+            price,
+            colors,
+        } = req.body
+
+        const id = req.params.id;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(402).json({ message: "Invalid ID format" });
+        }
+        const updatePost = await PostModel.findByIdAndUpdate({ _id: id }, {
+            title,
+            company,
+            description,
+            category,
+            price,
+            colors,
+        })
+
+
+        res.status(200).json({
+            message: "This post has been successfully update",
+            updatePost
+        })
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error" });
