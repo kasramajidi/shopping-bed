@@ -1,0 +1,503 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "<shopping-bed❤️ />",
+    "description": "Description For shopping-bed Project",
+    "version": "1.0.0"
+  },
+  "components": {
+    "securitySchemes": {
+      "Authorization": {
+        "type": "apiKey",
+        "name": "Authorization",
+        "scheme": "bearer",
+        "in": "header",
+        "description": "User token form authorization: **Bearer [user_token]**"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "This route for login and register and get all user"
+    },
+    {
+      "name": "Posts",
+      "description": "This route for create post and get post"
+    },
+    {
+      "name": "Orders",
+      "description": "This route for create Order and delete and put and get all"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "This api for users register in site",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "username": "kasra1382",
+                  "email": "kasra@email.com",
+                  "password": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully register"
+          },
+          "400": {
+            "description": "Please enter username, email and password"
+          },
+          "401": {
+            "description": "Username must be at least 3 chars long"
+          },
+          "402": {
+            "description": "The email is invalid"
+          },
+          "403": {
+            "description": "The password is invalid"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "This api for users login in site",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "email": "kasra@email.com",
+                  "password": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "successfully register"
+          },
+          "400": {
+            "description": "Please enter username, email and password"
+          },
+          "401": {
+            "description": "Username must be at least 3 chars long"
+          },
+          "402": {
+            "description": "The email is invalid"
+          },
+          "403": {
+            "description": "The password is invalid"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/guest": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "This api for users guest in site",
+        "responses": {
+          "200": {
+            "description": "successfully guest"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "This api for users logout site",
+        "responses": {
+          "200": {
+            "description": "successfully logout"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/auth/userAll": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "This api for get all user",
+        "responses": {
+          "200": {
+            "description": "get all user"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/posts/create-post": {
+      "post": {
+        "tags": ["Posts"],
+        "summary": "This api for create new post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "title": "Lounge Chair",
+                  "company": "Luxora",
+                  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge",
+                  "category": "Chairs",
+                  "price": "25999",
+                  "colors": ["#FF5733", "#33FF57", "#3366FF"],
+                  "image": "input image"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Show the post that has just been created with all the information"
+          },
+          "400": {
+            "description": "Please enter title, company, description, category, image, price, colors"
+          },
+          "401": {
+            "description": "Media is required !!"
+          },
+          "402": {
+            "description": "tiltle is repetitive"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/posts/all-Post": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "This api for get all post",
+        "responses": {
+          "200": {
+            "description": "This api is for giving all their posts and the number of pages"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/posts/remove/:id": {
+      "delete": {
+        "tags": ["Posts"],
+        "summary": "This api for remove post",
+        "responses": {
+          "200": {
+            "description": "This post has been successfully deleted"
+          },
+          "402": {
+            "description": "Invalid ID format"
+          },
+          "404": {
+            "description": "Post not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageID",
+            "in": "id",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/posts/getone/:title": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "This api for get one post",
+        "responses": {
+          "200": {
+            "description": "This post has get one post"
+          },
+          "401": {
+            "description": "Title is required"
+          },
+          "404": {
+            "description": "No posts found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "title",
+            "in": "title",
+            "required": true,
+            "type": "string",
+            "description": "You have to enter the title to show you one by one"
+          }
+        ]
+      }
+    },
+    "/posts/getpost?featured=true": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "This api for featured = true",
+        "responses": {
+          "200": {
+            "description": "This post featured = true"
+          },
+          "400": {
+            "description": "No products found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "featured",
+            "in": "featured",
+            "required": true,
+            "type": "string",
+            "description": "featured comes as a query that is equal to true or false"
+          }
+        ]
+      }
+    },
+    "/posts/getpost?featured=false": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "This api for featured = false",
+        "responses": {
+          "200": {
+            "description": "This post  featured = false"
+          },
+          "400": {
+            "description": "No products found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "featured",
+            "in": "featured",
+            "required": true,
+            "type": "string",
+            "description": "featured comes as a query that is equal to true or false"
+          }
+        ]
+      }
+    },
+    "/posts/filterpost?search=s&category=all&company=all&order=a-z&price=8499&shipping=true": {
+      "get": {
+        "tags": ["Posts"],
+        "summary": "Filter, search and sort products",
+        "responses": {
+          "200": {
+            "description": "Send all parameters"
+          },
+          "404": {
+            "description": "not found post"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "parameters filter",
+            "in": "filter",
+            "required": true,
+            "type": "string",
+            "description": "Send all parameters Filter, search and sort products"
+          }
+        ]
+      }
+    },
+    "/posts/update-post": {
+      "put": {
+        "tags": ["Posts"],
+        "summary": "This api for update post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "title": "Lounge Chair",
+                  "company": "Luxora",
+                  "description": "Cloud bread VHS hell of banjo bicycle rights jianbing umami mumblecore etsy 8-bit pok pok +1 wolf. Vexillologist yr dreamcatcher waistcoat, authentic chillwave trust fund. Viral typewriter fingerstache pinterest pork belly narwhal. Schlitz venmo everyday carry kitsch pitchfork chillwave iPhone taiyaki trust fund hashtag kinfolk microdosing gochujang live-edge",
+                  "category": "Chairs",
+                  "price": "25999",
+                  "colors": ["#FF5733", "#33FF57", "#3366FF"],
+                  "image": "input image"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "This post has been successfully update"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/orders/create-order": {
+      "post": {
+        "tags": ["Orders"],
+        "summary": "This api for create new Order",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "name": "kasra",
+                  "address": "iran....",
+                  "postID": "67b6d83ddfcd2bb8c18338a3"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Show the Order that has just been created with all the information"
+          },
+          "400": {
+            "description": "Please enter name, address, and postID" 
+          },
+          "401": {
+            "description": "Name must be at least 3 chars long"
+          },
+          "402": {
+            "description": "Address must be at least 3 chars long"
+          },
+          "403": {
+            "description":"Post not found" 
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/orders/get-all-order": {
+      "get": {
+        "tags": ["Orders"],
+        "summary": "This api for get all Orders",
+        "responses": {
+          "200": {
+            "description": "This api is for giving all their orders and the number of pages"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/orders/update-order/:id": {
+      "put": {
+        "tags": ["Orders"],
+        "summary": "This api for update Order",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "name": "kasra",
+                  "address": "iran....",
+                  "postID": "67b6d83ddfcd2bb8c18338a3"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Show the Order that has just been created with all the information"
+          },
+          "400": {
+            "description": "Please enter name, address, and postID" 
+          },
+
+          "402": {
+            "description": "Invalid ID format" 
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageID",
+            "in": "id",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/orders/remove/:id": {
+      "delete": {
+        "tags": ["Orders"],
+        "summary": "This api for remove Orders",
+        "responses": {
+          "200": {
+            "description": "This order has been successfully deleted"
+          },
+          "402": {
+            "description": "Invalid ID format"
+          },
+          "404": {
+            "description": "Post not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageID",
+            "in": "id",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    }
+  }
+}
