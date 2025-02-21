@@ -5,6 +5,7 @@ const cors = require("cors")
 const UserRouter = require("./modules/auth/users.routes")
 const ApiRouter = require("./modules/api/swagger.routes")
 const postRouter = require("./modules/posts/posts.routes")
+const orderRouter = require("./modules/order/order.routes")
 
 //* BodyParser
 app.use(express.urlencoded({ extended: true }));
@@ -18,6 +19,7 @@ app.use(cors())
 app.use("/auth", UserRouter)
 app.use("/api", ApiRouter)
 app.use("/posts", postRouter)
+app.use("/orders", orderRouter)
 
 //* 404 Error Handler
 app.use((req, res) => {

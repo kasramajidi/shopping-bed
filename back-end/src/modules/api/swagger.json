@@ -24,6 +24,10 @@
     {
       "name": "Posts",
       "description": "This route for create post and get post"
+    },
+    {
+      "name": "Orders",
+      "description": "This route for create Order and delete and put and get all"
     }
   ],
   "paths": {
@@ -338,7 +342,7 @@
         ]
       }
     },
-    "/posts/update-post":{
+    "/posts/update-post": {
       "put": {
         "tags": ["Posts"],
         "summary": "This api for update post",
@@ -363,6 +367,60 @@
         "responses": {
           "200": {
             "description": "This post has been successfully update"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/orders/create-order": {
+      "post": {
+        "tags": ["Orders"],
+        "summary": "This api for create new Order",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "name": "kasra",
+                  "address": "iran....",
+                  "postID": "67b6d83ddfcd2bb8c18338a3"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Show the Order that has just been created with all the information"
+          },
+          "400": {
+            "description": "Please enter name, address, and postID" 
+          },
+          "401": {
+            "description": "Name must be at least 3 chars long"
+          },
+          "402": {
+            "description": "Address must be at least 3 chars long"
+          },
+          "403": {
+            "description":"Post not found" 
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/orders/get-all-order": {
+      "get": {
+        "tags": ["Orders"],
+        "summary": "This api for get all Orders",
+        "responses": {
+          "200": {
+            "description": "This api is for giving all their orders and the number of pages"
           },
           "500": {
             "description": "Internal Server Error"
