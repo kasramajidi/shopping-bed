@@ -10,4 +10,12 @@ orderRouter
 orderRouter
     .route("/get-all-order")
     .get(auth, orderController.getAll)
+
+orderRouter
+    .route("/remove/:id")
+    .delete(auth, orderController.remove)
+
+orderRouter
+    .route("/update-order/:id")
+    .put(auth, orderController.update)
 module.exports = orderRouter

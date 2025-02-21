@@ -427,6 +427,77 @@
           }
         }
       }
+    },
+    "/orders/update-order/:id": {
+      "put": {
+        "tags": ["Orders"],
+        "summary": "This api for update Order",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "example": {
+                  "name": "kasra",
+                  "address": "iran....",
+                  "postID": "67b6d83ddfcd2bb8c18338a3"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Show the Order that has just been created with all the information"
+          },
+          "400": {
+            "description": "Please enter name, address, and postID" 
+          },
+
+          "402": {
+            "description": "Invalid ID format" 
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageID",
+            "in": "id",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/orders/remove/:id": {
+      "delete": {
+        "tags": ["Orders"],
+        "summary": "This api for remove Orders",
+        "responses": {
+          "200": {
+            "description": "This order has been successfully deleted"
+          },
+          "402": {
+            "description": "Invalid ID format"
+          },
+          "404": {
+            "description": "Post not found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageID",
+            "in": "id",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
     }
   }
 }
