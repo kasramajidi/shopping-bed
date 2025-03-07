@@ -1,6 +1,9 @@
-
-export default function Home() {
+"use client"
+import Home from "../app/pages/Home/page"
+export default function App() {
   return (
-    <h1>kasra</h1>
+    <div>
+      <Home/>
+    </div>
   );
 }
