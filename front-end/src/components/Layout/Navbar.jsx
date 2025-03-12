@@ -3,10 +3,11 @@ import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { FaMoon } from "react-icons/fa6";
 import { RiShoppingCart2Line } from "react-icons/ri";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Navbar() {
   const pathname = usePathname()
-
+  const { isAuthenticated } = useAuth()
   return (
     <header className="bg-[#F0F6FF] py-3">
       <div className="text-[#394E6A] max-w-5xl mx-auto flex items-center justify-between">
@@ -17,46 +18,91 @@ export default function Navbar() {
           c
         </Link>
         <nav className="flex items-center text-[#394E6A] gap-5">
-          <Link
-            href="/"
-            className={`py-2 px-4 ${
-              pathname === "/" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"
-            }`}
-          >
-            Home
-          </Link>
-          <Link
-            href="/about"
-            className={`py-2 px-4 ${
-              pathname === "/about" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"
-            }`}
-          >
-            About
-          </Link>
-          <Link
-            href="/products"
-            className={`py-2 px-4 ${
-              pathname === "/products" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"
-            }`}
-          >
-            Products
-          </Link>
-          <Link
-            href="/cart"
-            className={`py-2 px-4 ${
-              pathname === "/cart" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"
-            }`}
-          >
-            Cart
-          </Link>
+          {isAuthenticated ? (
+            <>
+              <Link
+                href="/"
+                className={`py-2 px-4 ${pathname === "/" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"
+                  }`}
+              >
+                Home
+              </Link>
+              <Link
+                href="/about"
+                className={`py-2 px-4 ${pathname === "/about" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"
+                  }`}
+              >
+                About
+              </Link>
+              <Link
+                href="/products"
+                className={`py-2 px-4 ${pathname === "/products" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"
+                  }`}
+              >
+                Products
+              </Link>
+              <Link
+                href="/cart"
+                className={`py-2 px-4 ${pathname === "/cart" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"
+                  }`}
+              >
+                Cart
+              </Link>
+              <Link
+                href="/CheckOut"
+                className={`py-2 px-4 ${pathname === "/cart" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"
+                  }`}
+              >
+                CheckOut
+              </Link>
+              <Link
+                href="/Order"
+                className={`py-2 px-4 ${pathname === "/cart" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"
+                  }`}
+              >
+                Order
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/"
+                className={`py-2 px-4 ${pathname === "/" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"
+                  }`}
+              >
+                Home
+              </Link>
+              <Link
+                href="/about"
+                className={`py-2 px-4 ${pathname === "/about" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"
+                  }`}
+              >
+                About
+              </Link>
+              <Link
+                href="/products"
+                className={`py-2 px-4 ${pathname === "/products" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"
+                  }`}
+              >
+                Products
+              </Link>
+              <Link
+                href="/cart"
+                className={`py-2 px-4 ${pathname === "/cart" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"
+                  }`}
+              >
+                Cart
+              </Link>
+            </>
+          )}
         </nav>
         <div className="flex items-center gap-5 text-xl">
-            <FaMoon className="text-[rgb(57, 78, 106)] cursor-pointer"/>
-            <Link href={"/cart"} className="relative">
-              <RiShoppingCart2Line  className="cursor-pointer"/>
-              <span className="bg-[#0066CC] absolute px-1.5 text-white -top-4 rounded-lg -right-3 text-sm">0</span>
-            </Link>
-        </div>  
+          <FaMoon className="text-[rgb(57, 78, 106)] cursor-pointer" />
+          <Link href={"/cart"} className="relative">
+            <RiShoppingCart2Line className="cursor-pointer" />
+            <span className="bg-[#0066CC] absolute px-1.5 text-white -top-4 rounded-lg -right-3 text-sm">0</span>
+          </Link>
+        </div>
       </div>
     </header>
   );
