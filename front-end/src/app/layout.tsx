@@ -1,24 +1,12 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import Register from "@/components/Layout/register"
-import Navbar from "@/components/Layout/Navbar";
+import RootLayout from "./RootLayout";
+import "./globals.css"
 export const metadata: Metadata = {
   title: "Shopping",
-  description: "This is site for Shop",
+  description: "This is a shopping site",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body>
-        <Register/>
-        <Navbar/>
-        {children}
-      </body>
-    </html>
-  );
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <RootLayout>{children}</RootLayout>;
 }
+
