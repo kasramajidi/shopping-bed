@@ -95,9 +95,6 @@
           "400": {
             "description": "Please enter username, email and password"
           },
-          "401": {
-            "description": "Username must be at least 3 chars long"
-          },
           "402": {
             "description": "The email is invalid"
           },
