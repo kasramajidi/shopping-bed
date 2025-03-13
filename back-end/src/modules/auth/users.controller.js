@@ -150,6 +150,7 @@ exports.login = async (req, res) => {
                 email: user.email,
                 role: user.role,
             },
+            token: newtoken
         });
     } catch (err) {
         console.log(err);
@@ -174,6 +175,7 @@ exports.guest = async (req, res) => {
 
         res.status(200).json({
             message: "Guest login successful!",
+            token: guestToken
         })
     }catch (err){
         console.log(err);

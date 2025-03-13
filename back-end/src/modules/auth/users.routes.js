@@ -14,11 +14,11 @@ UserRouter
 
 UserRouter
     .route("/login")
-    .post(auth, UserController.login)
+    .post(UserController.login)
 
 UserRouter
     .route("/guest")
-    .post(auth, UserController.guest)
+    .post(UserController.guest)
 
 UserRouter
     .route("/logout")
