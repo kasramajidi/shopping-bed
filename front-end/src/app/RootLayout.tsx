@@ -3,6 +3,8 @@ import { usePathname } from "next/navigation";
 import Register from "@/components/Layout/register";
 import Navbar from "@/components/Layout/Navbar";
 import { AuthProvider } from "../context/AuthContext";
+import {ToastContainer} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css";
 
 export default function RootLayout({
   children,
@@ -19,6 +21,7 @@ export default function RootLayout({
         <body>
           {!hideHeader && <Register />}
           {!hideHeader && <Navbar />}
+          <ToastContainer/>
           {children}
         </body>
       </html>
