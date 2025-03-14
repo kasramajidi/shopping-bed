@@ -47,8 +47,8 @@ export default function Navbar() {
                 Home
               </Link>
               <Link
-                href="/about"
-                className={`py-2 px-4 ${pathname === "/about" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
+                href="/pages/About"
+                className={`py-2 px-4 ${pathname === "/pages/About" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
               >
                 About
               </Link>
@@ -86,8 +86,8 @@ export default function Navbar() {
                 Home
               </Link>
               <Link
-                href="/about"
-                className={`py-2 px-4 ${pathname === "/about" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
+                href="/pages/About"
+                className={`py-2 px-4 ${pathname === "/pages/About" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
               >
                 About
               </Link>
