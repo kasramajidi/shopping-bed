@@ -3,60 +3,34 @@ const mongoose = require("mongoose")
 
 exports.createPost = async (req, res) => {
     try {
-        const {
-            title,
-            company,
-            description,
-            category,
-            price,
-            colors,
-        } = req.body
-
-        if (!title || !company || !description || !category || !price || !colors) {
-            return res.status(400).json({
-                message: "Please enter title, company, description, category, image, price, colors"
-            })
-        }
+        const { title, company, description, category, price } = req.body;
 
         if (!req.file) {
-            return res.status(401).json({
-                message: "Media is required !!"
-            })
+            return res.status(400).json({ message: "Please upload an image" });
         }
 
-        const findTittle = await PostModel.findOne({ title }).lean()
+        const imageUrl = `/images/posts/${req.file.filename}`; // مسیر ذخیره شده در دیتابیس
 
-        if (findTittle) {
-            return res.status(402).json({
-                message: "tiltle is repetitive"
-            })
-        }
-
-        const pictureUrlPath = `/images/posts/${req.file.filename}`
-
-        const newPost = await PostModel.create({
+        const newPost = new PostModel({
             title,
             company,
             description,
             category,
-            image: {
-                filename: req.file.filename,
-                path: pictureUrlPath,
-            },
             price,
-            colors,
-        })
+            image: imageUrl,
+        });
 
-        newPost.save()
+        await newPost.save();
 
-        res.status(200).json(newPost);
-
-
+        res.status(201).json({
+            message: "Post created successfully!",
+            post: newPost,
+        });
     } catch (err) {
-        console.log(err);
+        console.error(err);
         res.status(500).json({ message: "Internal Server Error" });
     }
-}
+};
 
 exports.getAll = async (req, res) => {
     try {
@@ -144,7 +118,8 @@ exports.getfeatured = async (req, res) => {
         if (!post) {
             return res.status(400).json({
                 message: "No products found"
-            })
+            },
+            )
         }
 
         res.status(200).json(post)
@@ -240,7 +215,7 @@ exports.filterPost = async (req, res) => {
 }
 
 exports.update = async (req, res) => {
-    try{
+    try {
         const {
             title,
             company,
@@ -272,5 +247,19 @@ exports.update = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+exports.getOne = async (req, res) => {
+    try {
+        const product = await PostModel.findById(req.params.id)
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        res.status(200).json(product);
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 }

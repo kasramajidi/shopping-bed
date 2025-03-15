@@ -2,16 +2,12 @@ const express = require("express")
 const postController = require("./posts.controller")
 const postRouter = express.Router()
 const auth = require("./../../middleware/auth")
-const {multerStorage} = require("./../../middleware/uploaderConfigs")
+const upload = require("./../../middleware/uploaderConfigs")
 
-const uploder = multerStorage(
-    "public/images/posts",
-    /jpeg|jpg|png|webp/
-)
 
 postRouter
     .route('/create-post')
-    .post(auth, uploder.single("image"), postController.createPost)
+    .post(upload.single("image"), postController.createPost);
 
 postRouter
     .route("/all-Post")
@@ -36,4 +32,8 @@ postRouter
 postRouter
     .route("/update-post")
     .put(auth, postController.update)
+
+postRouter
+    .route("/getpost/:id")
+    .get(postController.getOne)
 module.exports = postRouter;

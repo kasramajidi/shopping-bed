@@ -13,14 +13,14 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
   const hideHeader =
-    pathname === "/pages/Login" || pathname === "/pages/Signup";
+    pathname === "/Login" || pathname === "/Signup";
 
   return (
     <AuthProvider>
       <html lang="en">
         <body>
           {!hideHeader && <Register />}
-          {!hideHeader && <Navbar />}
+          {!hideHeader && <Navbar />} 
           <ToastContainer/>
           {children}
         </body>

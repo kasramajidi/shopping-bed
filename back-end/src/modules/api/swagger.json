@@ -190,6 +190,33 @@
         }
       }
     },
+    "/posts/getpost/:id":{
+      "get": {
+        "tags": ["Posts"],
+        "summary": "This api for get one post by id",
+        "responses": {
+          "200": {
+            "description": "This post has get one post"
+          },
+          "404": {
+            "description": "No posts found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "parameters": [
+          {
+            "title": "id",
+            "in": "id",
+            "required": true,
+            "type": "string",
+            "description": "You have to enter the id to show you one by one"
+            
+          }
+        ]
+      }
+    },
     "/posts/all-Post": {
       "get": {
         "tags": ["Posts"],

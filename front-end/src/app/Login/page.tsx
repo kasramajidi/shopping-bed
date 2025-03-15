@@ -26,13 +26,11 @@ interface Data {
   password: string;
 }
 
-interface ApiResponse {
-  data: {
-    token: string;
-  };
+interface LoginResponse {
+  token: string;
 }
 
-const LoginApi = async (user: Data): Promise<ApiResponse> => {
+const LoginApi = async (user: Data): Promise<LoginResponse> => {
   try {
     const response = await axios.post("http://localhost:5500/auth/login", {
       email: user.email,
@@ -40,11 +38,12 @@ const LoginApi = async (user: Data): Promise<ApiResponse> => {
     });
     return response.data;
   } catch (err) {
+    console.log(err);
     throw new Error("Login failed");
   }
 };
 
-export default function page() {
+export default function Page() {
   const router = useRouter();
   const { setIsAuthenticated } = useAuth();
   const {
@@ -56,18 +55,20 @@ export default function page() {
     mode: "onBlur",
   });
 
-  const Mutation: UseMutationResult<ApiResponse, Error, Data> = useMutation({
+  const Mutation: UseMutationResult<LoginResponse, Error, Data> = useMutation({
     mutationFn: LoginApi,
     onSuccess: (data) => {
       toast.success("Logged in successfully", { position: "top-center" });
       setTimeout(() => {
         localStorage.setItem("token", data.token);
-        setIsAuthenticated(true)
-        router.push("/pages/Home");
+        setIsAuthenticated(true);
+        router.push("/");
       }, 1500);
     },
     onError: (error) => {
-      toast.error(error?.message || "logged was unsuccessful", { position: "top-center" });
+      toast.error(error?.message || "logged was unsuccessful", {
+        position: "top-center",
+      });
     },
   });
 
@@ -121,13 +122,13 @@ export default function page() {
           Login
         </button>
       </form>
-        <Guest/>
-        <span className="flex items-center justify-center mt-5 gap-2 text-[rgb(57,78,106)]">
-          Already a member?
-          <Link href={"/pages/Signup"} className="text-[rgb(5,122,255)]">
-            Register
-          </Link>
-        </span>
+      <Guest />
+      <span className="flex items-center justify-center mt-5 gap-2 text-[rgb(57,78,106)]">
+        Already a member?
+        <Link href={"/Signup"} className="text-[rgb(5,122,255)]">
+          Register
+        </Link>
+      </span>
     </section>
   );
 }

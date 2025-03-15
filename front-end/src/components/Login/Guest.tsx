@@ -10,7 +10,7 @@ export default function Guest() {
             const response = await axios.post("http://localhost:5500/auth/guest");
             localStorage.setItem("token", response.data.token);
             setIsAuthenticated(true)
-            router.push("/pages/Home");
+            router.push("/");
             toast.success("welcome quset user", { position: "top-center" });
         } catch (err) {
             console.error("Error during guest login:", err);

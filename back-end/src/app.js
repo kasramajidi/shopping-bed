@@ -6,7 +6,7 @@ const UserRouter = require("./modules/auth/users.routes")
 const ApiRouter = require("./modules/api/swagger.routes")
 const postRouter = require("./modules/posts/posts.routes")
 const orderRouter = require("./modules/order/order.routes")
-
+const path = require("path")
 //* BodyParser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -20,6 +20,9 @@ app.use("/auth", UserRouter)
 app.use("/api", ApiRouter)
 app.use("/posts", postRouter)
 app.use("/orders", orderRouter)
+
+
+app.use("/images/posts", express.static(path.join(__dirname, "../public/images/posts")));
 
 //* 404 Error Handler
 app.use((req, res) => {
