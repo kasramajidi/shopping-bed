@@ -41,11 +41,12 @@ const registerApi = async (user: Data): Promise<ApiResponse> => {
     });
     return response.data;
   } catch (err) {
+    console.log(err);
     throw new Error("ثبت‌نام ناموفق بود! لطفاً دوباره امتحان کنید.");
   }
 };
 
-export default function page() {
+export default function Page() {
   const router = useRouter();
 
   const {
@@ -62,7 +63,7 @@ export default function page() {
     onSuccess: () => {
       toast.success("account created successfully", { position: "top-center" });
       setTimeout(() => {
-        router.push("/pages/Login");
+        router.push("/Login");
       }, 1500);
     },
     onError: () => {
@@ -93,7 +94,7 @@ export default function page() {
           />
           {errors.username && (
             <span className="text-red-600 text-lg">
-              !{errors.username.message}
+              {errors.username.message}!
             </span>
           )}
         </div>
@@ -108,8 +109,8 @@ export default function page() {
             className="flex-shrink-1 rounded-lg px-4 text-[rgb(57,78,106)] py-2 border border-[rgba(57,78,106,0.2)] focus:outline-2 focus:outline-[rgba(39,77,112,0.2)] focus:outline-offset-2"
           />
           {errors.email && (
-            <span className="text-red-600 text-lg">
-              !{errors.email.message}
+            <span className="text-red-600 text-xs">
+              {errors.email.message}!
             </span>
           )}
         </div>
@@ -137,7 +138,7 @@ export default function page() {
         </button>
         <span className="flex items-center gap-2 text-[rgb(57,78,106)]">
           Already a member?
-          <Link href={"/pages/Login"} className="text-[rgb(5,122,255)]">
+          <Link href={"/Login"} className="text-[rgb(5,122,255)]">
             login
           </Link>
         </span>

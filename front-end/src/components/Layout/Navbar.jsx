@@ -15,7 +15,7 @@ export default function Navbar() {
 
   return (
     <header className="bg-[#F0F6FF] py-3">
-      <div className="text-[#394E6A] max-w-5xl mx-auto flex items-center justify-between px-10">
+      <div className="text-[#394E6A] max-w-7xl mx-auto flex items-center justify-between px-10">
         {/* لوگو */}
         <Link
           href="/"
@@ -47,14 +47,14 @@ export default function Navbar() {
                 Home
               </Link>
               <Link
-                href="/pages/About"
-                className={`py-2 px-4 ${pathname === "/pages/About" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
+                href="/About"
+                className={`py-2 px-4 ${pathname === "/About" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
               >
                 About
               </Link>
               <Link
-                href="/products"
-                className={`py-2 px-4 ${pathname === "/products" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
+                href="/Products"
+                className={`py-2 px-4 ${pathname === "/Products" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
               >
                 Products
               </Link>
@@ -86,14 +86,14 @@ export default function Navbar() {
                 Home
               </Link>
               <Link
-                href="/pages/About"
-                className={`py-2 px-4 ${pathname === "/pages/About" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
+                href="/About"
+                className={`py-2 px-4 ${pathname === "/About" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
               >
                 About
               </Link>
               <Link
-                href="/products"
-                className={`py-2 px-4 ${pathname === "/products" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
+                href="/Products"
+                className={`py-2 px-4 ${pathname === "/Products" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
               >
                 Products
               </Link>

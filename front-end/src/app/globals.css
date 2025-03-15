@@ -1,5 +1,11 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
-body{
+html{
+    background-color: white;
     color: white;
+}
+
+input{
+    background-color: transparent;
 }

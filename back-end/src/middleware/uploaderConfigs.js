@@ -1,40 +1,40 @@
-const multer = require("multer")
-const fs = require("fs")
-const path = require("path")
+const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
-exports.multerStorage = (destination, allowTypes = /jpeg|jpg|png|webp/) => {
-    if (!fs.existsSync(destination)){
-        fs.mkdirSync(destination)
-    }
+// مسیر ذخیره‌سازی تصاویر
+const storagePath = path.resolve(__dirname, "../public/images/posts");
 
-
-    const storage = multer.diskStorage({
-        destination: function(req, file, cb){
-            cb(null, destination)
-        },
-
-        filename: function(req, file, cb){
-            const uniqe = Date.now() * Math.floor(Math.random() * 1e9)
-            const ext = path.extname(file.originalname);
-            cb(null, `${uniqe}${ext}`)
-        }
-    })
-
-    const fileFilter = function (req, file, cb) {
-        if (allowTypes.test(file.mimetype)){
-            cb(null, true)
-        } else{
-            cb(new Error("File type not allowed !!"));
-        }
-    }
-
-    const uploader = multer({
-        storage,
-        limits: {
-            fileSize: 512_000_000
-        },
-        fileFilter,
-    })
-
-    return uploader;
+// بررسی و ایجاد پوشه در صورت عدم وجود
+if (!fs.existsSync(storagePath)) {
+    fs.mkdirSync(storagePath, { recursive: true });
 }
+
+// تنظیمات `multer`
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, storagePath);
+    },
+    filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + Math.floor(Math.random() * 1e9);
+        const ext = path.extname(file.originalname);
+        cb(null, `${uniqueSuffix}${ext}`);
+    },
+});
+
+const upload = multer({
+    storage: storage,
+    limits: { fileSize: 5 * 1024 * 1024 }, // محدودیت حجم: 5 مگابایت
+    fileFilter: function (req, file, cb) {
+        const allowedTypes = /jpeg|jpg|png|webp/;
+        const extName = allowedTypes.test(path.extname(file.originalname).toLowerCase());
+        const mimeType = allowedTypes.test(file.mimetype);
+        if (extName && mimeType) {
+            return cb(null, true);
+        } else {
+            cb(new Error("File type not allowed!"));
+        }
+    },
+});
+
+module.exports = upload;

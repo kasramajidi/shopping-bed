@@ -14,7 +14,7 @@ export default function Logout() {
       );
       localStorage.removeItem("token");
       setIsAuthenticated(false);
-      router.push("/pages/Home");
+      router.push("/Home");
       toast.success("logout user", { position: "top-center" });
     } catch (err) {
       console.log(err);
