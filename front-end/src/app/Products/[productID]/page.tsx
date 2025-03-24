@@ -26,7 +26,7 @@ export default function Page() {
     const response = await axios.get(
       `http://localhost:5500/posts/getpost/${id}`
     );
-    return response.data;
+    return response.data; 
   };
 
   const mutation = useMutation<Product, Error, string>({

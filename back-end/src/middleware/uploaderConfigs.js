@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 // مسیر ذخیره‌سازی تصاویر
-const storagePath = path.resolve(__dirname, "../public/images/posts");
+const storagePath = path.join(__dirname, "../../public/images/posts");
 
 // بررسی و ایجاد پوشه در صورت عدم وجود
 if (!fs.existsSync(storagePath)) {
