@@ -340,7 +340,7 @@
         ]
       }
     },
-    "/posts/filterpost?search=s&category=all&company=all&order=a-z&price=8499&shipping=true": {
+    "/posts/all-Post?search=s&category=all&company=all&order=a-z&price=8499&shipping=true": {
       "get": {
         "tags": ["Posts"],
         "summary": "Filter, search and sort products",

@@ -17,7 +17,10 @@ exports.createPost = async (req, res) => {
             description,
             category,
             price,
-            image: imageUrl,
+            image: {
+                filename: req.file.filename,
+                path: imageUrl,
+            },
         });
 
         await newPost.save();
@@ -32,34 +35,84 @@ exports.createPost = async (req, res) => {
     }
 };
 
-exports.getAll = async (req, res) => {
+exports.getAllAndFilter = async (req, res) => {
     try {
-        const page = parseInt(req.query.page) || 1
-        const pageSize = parseInt(req.query.pageSize) || 10
-        const skip = (page - 1) * pageSize
+        const page = parseInt(req.query.page) || 1;
+        const pageSize = parseInt(req.query.pageSize) || 10;
+        const skip = (page - 1) * pageSize;
 
-        const post = await PostModel.find({}).skip(skip).limit(pageSize)
+        const post = await PostModel.find({}).skip(skip).limit(pageSize);
 
-        const countPost = await PostModel.countDocuments()
+        const countPost = await PostModel.countDocuments();
 
-        const pageCount = Math.ceil(countPost / pageSize)
+        const pageCount = Math.ceil(countPost / pageSize);
+
+        const {
+            search,
+            category,
+            company,
+            order,
+            price,
+            shipping
+        } = req.query;
+
+        let filteredPosts = post;
+
+        if (search) {
+            filteredPosts = filteredPosts.filter((p) =>
+                p.title.toLowerCase().includes(search.toLowerCase())
+            );
+        }
+
+        if (category && category !== "All") {
+            filteredPosts = filteredPosts.filter((p) => p.category === category);
+        }
+
+        if (company && company !== "All") {
+            filteredPosts = filteredPosts.filter((p) => p.company === company);
+        }
+
+        if (price) {
+            filteredPosts = filteredPosts.filter((p) => p.price <= Number(price));
+        }
+
+        if (shipping) {
+            filteredPosts = filteredPosts.filter((p) => p.shipping === (shipping === "true"));
+        }
+
+        if (order) {
+            if (order === "a-z") {
+                filteredPosts = filteredPosts.sort((a, b) => a.title.localeCompare(b.title));
+            } else if (order === "z-a") {
+                filteredPosts = filteredPosts.sort((a, b) => b.title.localeCompare(a.title));
+            } else if (order === "low") {
+                filteredPosts = filteredPosts.sort((a, b) => a.price - b.price);
+            } else if (order === "high") {
+                filteredPosts = filteredPosts.sort((a, b) => b.price - a.price);
+            }
+        }
+
+        const filteredCount = filteredPosts.length;
+        const totalPage = Math.ceil(filteredCount / pageSize);
+        const paginatedPosts = filteredPosts.slice(skip, skip + pageSize);
 
         res.status(200).json({
-            attributes: post,
+            attributes: paginatedPosts,
             meta: {
                 pagination: {
                     page,
                     pageSize,
-                    pageCount,
-                    countPost
+                    totalPage,
+                    filteredCount
                 }
             }
-        })
+        });
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: "Internal Server Error" });
     }
-}
+};
+
 
 exports.remove = async (req, res) => {
     try {
@@ -129,90 +182,7 @@ exports.getfeatured = async (req, res) => {
     }
 }
 
-exports.filterPost = async (req, res) => {
-    try {
-        const {
-            search,
-            category,
-            company,
-            order,
-            price,
-            shipping,
-            page,
-            limit
-        } = req.query
 
-        let queryObject = {};
-
-        // filter search
-        if (search) {
-            queryObject.title = { $regex: search, $options: "i" };
-        }
-
-        // category
-        if (category && category !== "All") {
-            queryObject.category = category
-        }
-
-        // company
-
-        if (company && company !== "All") {
-            queryObject.company = company
-        }
-
-        // price
-
-        if (price) {
-            queryObject.price = { $lte: Number(price) }
-        }
-
-        // free
-
-        if (shipping) {
-            queryObject.shipping = shipping === "true"
-        }
-
-        // order
-
-        let sortOrder = {};
-        if (order) {
-            if (order === "a-z") sortOrder.title = 1;
-            if (order === "z-a") sortOrder.title = -1;
-            if (order === "low") sortOrder.price = 1;
-            if (order === "high") sortOrder.price = -1;
-        }
-
-        // arrangement
-
-        let pagenum = parseInt(page) || 1;
-        let limitnum = parseInt(limit) || 10;
-        let skip = (pagenum - 1) * limitnum;
-
-        // find post
-
-        const post = await PostModel.find(queryObject).sort(sortOrder).skip(skip).limit(limit)
-
-        if (!post) {
-            return res.status(404).json({
-                message: "not found post"
-            })
-        }
-
-        const allPost = await PostModel.countDocuments(queryObject)
-        const totalPage = Math.ceil(allPost / limit)
-
-        res.status(200).json({
-            currentPage: page,
-            totalPage,
-            allPost,
-            post
-        })
-
-    } catch (err) {
-        console.log(err);
-        res.status(500).json({ message: "Internal Server Error" });
-    }
-}
 
 exports.update = async (req, res) => {
     try {

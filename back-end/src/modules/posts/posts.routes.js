@@ -11,7 +11,7 @@ postRouter
 
 postRouter
     .route("/all-Post")
-    .get(postController.getAll)
+    .get(postController.getAllAndFilter);
 
 postRouter
     .route("/remove/:id")
@@ -24,10 +24,6 @@ postRouter
 postRouter
     .route("/getpost")
     .get(postController.getfeatured)
-
-postRouter
-    .route("/filterpost")
-    .get(postController.filterPost)
 
 postRouter
     .route("/update-post")
