@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
+import AddToCartButton from "@/components/Product/AddToCartButton";
 
 interface Product {
   title: string;
@@ -17,22 +18,32 @@ interface Product {
   colors: string[];
 }
 
-
 export default function Page() {
   const { productID } = useParams();
   const [data, setData] = useState<Product>();
+  const [selectColors, setSelectColors] = useState<string | null>(null);
+  const [selectAmount, setSelectAmount] = useState<number>(1);
+  
+  const validProductID = Array.isArray(productID) ? productID[0] : productID ?? "";
+
+  const handelSubmitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const saveValue = parseInt(e.target.value);
+    setSelectAmount(saveValue);
+  };
 
   const fetchProduct = async (id: string): Promise<Product> => {
     const response = await axios.get(
       `http://localhost:5500/posts/getpost/${id}`
     );
-    return response.data; 
+    return response.data;
   };
 
   const mutation = useMutation<Product, Error, string>({
     mutationFn: fetchProduct,
     onSuccess: (data) => {
       setData(data);
+      const defaultColor = JSON.parse(data.colors[0])[0];
+      setSelectColors(defaultColor);
     },
   });
 
@@ -89,7 +100,12 @@ export default function Page() {
                 (color: string, index: number) => (
                   <button
                     key={index}
-                    className="w-5 h-5 sm:w-6 sm:h-6 border-secondary rounded-full"
+                    onClick={() => setSelectColors(color)}
+                    className={`w-5 h-5 cursor-pointer sm:w-6 sm:h-6 rounded-full border-2 transition-all duration-200 ${
+                      selectColors === color
+                        ? "border-black scale-125"
+                        : "border-transparent"
+                    }`}
                     style={{ backgroundColor: color }}
                   ></button>
                 )
@@ -103,7 +119,11 @@ export default function Page() {
               >
                 Amount
               </label>
-              <select className="select bg-white text-black pl-4 pr-10 h-10 sm:h-12 rounded-xl border border-[rgb(70,58,161)] focus:outline-2 focus:outline-[rgb(70,58,161)] focus:outline-offset-2 select-bordered">
+              <select
+                className="select bg-white text-black pl-4 pr-10 h-10 sm:h-12 rounded-xl border border-[rgb(70,58,161)] focus:outline-2 focus:outline-[rgb(70,58,161)] focus:outline-offset-2 select-bordered"
+                value={selectAmount}
+                onChange={handelSubmitChange}
+              >
                 {[...Array(20)].map((_, i) => (
                   <option key={i} value={i + 1}>
                     {i + 1}
@@ -112,9 +132,20 @@ export default function Page() {
               </select>
             </div>
 
-            <button className="px-4 self-start rounded-lg cursor-pointer py-2 mt-6 sm:mt-10 bg-[rgb(70,58,161)] transition hover:bg-[rgb(70,10,161)] text-[rgb(219,212,237)]">
+            {/* <button className="px-4 self-start rounded-lg cursor-pointer py-2 mt-6 sm:mt-10 bg-[rgb(70,58,161)] transition hover:bg-[rgb(70,10,161)] text-[rgb(219,212,237)]">
               ADD TO CART
-            </button>
+            </button> */}
+
+            <AddToCartButton
+              productID={validProductID}
+              title={data.title}
+              price={data.price}
+              image={data.image}
+              company={data.company}
+              colors={selectColors}
+              amount={selectAmount}
+              description={data.description}
+            />
           </div>
         </div>
       ) : (

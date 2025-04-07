@@ -59,7 +59,7 @@ export default function Navbar() {
                 Products
               </Link>
               <Link
-                href="/cart"
+                href="/Cart"
                 className={`py-2 px-4 ${pathname === "/cart" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
               >
                 Cart
@@ -98,7 +98,7 @@ export default function Navbar() {
                 Products
               </Link>
               <Link
-                href="/cart"
+                href="/Cart"
                 className={`py-2 px-4 ${pathname === "/cart" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
               >
                 Cart
