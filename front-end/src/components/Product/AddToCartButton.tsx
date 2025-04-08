@@ -1,5 +1,5 @@
 "use client";
-
+import {toast} from "react-toastify"
 interface AddToCartButtonProps {
   productID: string;
   title: string;
@@ -23,7 +23,6 @@ export default function AddToCartButton({
   amount,
   description,
 }: AddToCartButtonProps) {
-
   const handelAddToCart = () => {
     const selectedColor = colors || "defaultColor";
 
@@ -44,6 +43,12 @@ export default function AddToCartButton({
     carts.push(cartItem);
     localStorage.setItem("cart", JSON.stringify(carts));
 
+    const event = new CustomEvent("cart-updated", {
+      detail: { updatedCount: carts.length },
+    });
+    window.dispatchEvent(event);
+
+    toast.success("Item added to cart", {position: "top-center"})
   };
 
   return (

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { CartItemType, CartAction } from "@/app/Cart/page";
+import { toast } from "react-toastify";
 import { JSX } from "react";
 
 type CartItemsProps = {
@@ -44,15 +45,27 @@ export default function CartItems({
               className="select bg-white text-black pl-2 pr-5 cursor-pointer w-[50px] lg:h-6 sm:h-12 rounded-xl border border-[rgba(57,78,106,0.2)] focus:outline-2 focus:outline-[rgba(57,78,106,0.2)] focus:outline-offset-2 select-bordered"
               id="amount"
               value={item.amount}
-              onChange={(e) =>
+              onChange={(e) => {
+                const newAmount = Number(e.target.value);
+
                 dispatch({
                   type: "CHANGE_AMOUNT",
                   payload: {
                     id: item.id,
-                    amount: Number(e.target.value),
+                    amount: newAmount,
                   },
-                })
-              }
+                });
+
+                  const updatedCart = cartItems.map((cartItem) =>
+                    cartItem.id === item.id
+                      ? { ...cartItem, amount: newAmount }
+                      : cartItem
+                  );
+                  localStorage.setItem("cart", JSON.stringify(updatedCart));
+
+                  toast.success("Cart updated", {position: "top-center"});
+                  window.dispatchEvent(new Event("cart-updated"));
+              }}
             >
               {[...Array(6)].map((_, i) => (
                 <option key={i} value={i + 1}>
@@ -64,10 +77,11 @@ export default function CartItems({
               className="text-[rgb(5,122,255)] text-sm hover:underline cursor-pointer"
               onClick={() => {
                 dispatch({ type: "REMOVE", payload: item.id });
-                localStorage.setItem(
-                  "cart",
-                  JSON.stringify(cartItems.filter((i) => i.id !== item.id))
-                );
+                const updatedCart = cartItems.filter((i) => i.id !== item.id);
+                localStorage.setItem("cart", JSON.stringify(updatedCart));
+            
+                toast.error("Item removed from cart", {position: "top-center"});
+                window.dispatchEvent(new Event("cart-updated"));
               }}
             >
               remove
