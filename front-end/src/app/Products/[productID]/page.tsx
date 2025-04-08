@@ -124,17 +124,13 @@ export default function Page() {
                 value={selectAmount}
                 onChange={handelSubmitChange}
               >
-                {[...Array(20)].map((_, i) => (
+                {[...Array(6)].map((_, i) => (
                   <option key={i} value={i + 1}>
                     {i + 1}
                   </option>
                 ))}
               </select>
             </div>
-
-            {/* <button className="px-4 self-start rounded-lg cursor-pointer py-2 mt-6 sm:mt-10 bg-[rgb(70,58,161)] transition hover:bg-[rgb(70,10,161)] text-[rgb(219,212,237)]">
-              ADD TO CART
-            </button> */}
 
             <AddToCartButton
               productID={validProductID}
