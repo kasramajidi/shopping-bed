@@ -1,16 +1,34 @@
 "use client";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { FaMoon } from "react-icons/fa6";
 import { RiShoppingCart2Line } from "react-icons/ri";
 import { useAuth } from "@/context/AuthContext";
-import { useState } from "react";
 
 export default function Navbar() {
   const pathname = usePathname();
   const { isAuthenticated } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0)
 
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cart")
+    const carts = storedCart ? JSON.parse(storedCart) : []
+    setCartCount(carts.length)
+
+    const handleStorageChange = () => {
+      const updatedCart = localStorage.getItem("cart");
+      const parsed = updatedCart ? JSON.parse(updatedCart) : [];
+      setCartCount(parsed.length);
+    };
+
+    window.addEventListener("cart-updated", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("cart-updated", handleStorageChange);
+    };
+  }, [])
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
@@ -34,9 +52,8 @@ export default function Navbar() {
 
         {/* منو */}
         <nav
-          className={`lg:flex flex-col lg:flex-row lg:gap-5 lg:items-center absolute flex max-w-[250px] lg:static bg-[#F0F6FF] w-full top-20 left-10 lg:w-auto lg:bg-transparent transition-all ${
-            isOpen ? "block" : "hidden"
-          }`}
+          className={`lg:flex flex-col lg:flex-row lg:gap-5 lg:items-center absolute flex max-w-[250px] lg:static bg-[#F0F6FF] w-full top-20 left-10 lg:w-auto lg:bg-transparent transition-all ${isOpen ? "block" : "hidden"
+            }`}
         >
           {isAuthenticated ? (
             <>
@@ -60,13 +77,13 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/Cart"
-                className={`py-2 px-4 ${pathname === "/cart" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
+                className={`py-2 px-4 ${pathname === "/Cart" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
               >
                 Cart
               </Link>
               <Link
-                href="/CheckOut"
-                className={`py-2 px-4 ${pathname === "/CheckOut" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
+                href="/Checkout"
+                className={`py-2 px-4 ${pathname === "/Checkout" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
               >
                 CheckOut
               </Link>
@@ -99,7 +116,7 @@ export default function Navbar() {
               </Link>
               <Link
                 href="/Cart"
-                className={`py-2 px-4 ${pathname === "/cart" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
+                className={`py-2 px-4 ${pathname === "/Cart" ? "bg-[#021431] text-[#C7C9D1] rounded-lg" : "bg-transparent text-[#394E6A]"}`}
               >
                 Cart
               </Link>
@@ -110,10 +127,10 @@ export default function Navbar() {
         {/* آیکون‌ها */}
         <div className="flex items-center gap-5 text-xl">
           <FaMoon className="text-[rgb(57, 78, 106)] cursor-pointer" />
-          <Link href="/cart" className="relative lg:block hidden">
+          <Link href="/Cart" className="relative lg:block hidden">
             <RiShoppingCart2Line className="cursor-pointer" />
             <span className="bg-[#0066CC] absolute px-1.5 text-white -top-4 rounded-lg -right-3 text-sm">
-              0
+              {cartCount}
             </span>
           </Link>
         </div>
