@@ -5,11 +5,11 @@ const auth = require("./../../middleware/auth")
 
 orderRouter
     .route("/create-order")
-    .post(auth, orderController.createOrder)
+    .post(orderController.createOrder)
 
 orderRouter
     .route("/get-all-order")
-    .get(auth, orderController.getAll)
+    .get(orderController.getAll)
 
 orderRouter
     .route("/remove/:id")

@@ -12,7 +12,6 @@ const schema = new mongoose.Schema({
     post:{
         type: mongoose.Types.ObjectId,
         ref: "Post",
-        required: true
     },
     chargeTotal: {
         type: Number,
@@ -21,7 +20,8 @@ const schema = new mongoose.Schema({
         type: Number,
     },
     orderTotal:{
-        type: String
+        type: Number,
+        required: true
     }
 
 }, {timestamps: true})
