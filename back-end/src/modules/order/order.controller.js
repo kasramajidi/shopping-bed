@@ -4,9 +4,9 @@ const mongoose = require("mongoose")
 
 exports.createOrder = async (req, res) => {
     try {
-        const { name, address, postID } = req.body;
+        const { name, address, orderTotal } = req.body;
 
-        if (!name || !address || !postID) {
+        if (!name || !address || !orderTotal) {
             return res.status(400).json({ message: "Please enter name, address, and postID" });
         }
 
@@ -20,15 +20,11 @@ exports.createOrder = async (req, res) => {
             return res.status(402).json({ message: "Address must be at least 3 chars long" });
         }
 
-        const postExists = await PostModel.findById(postID);
-        if (!postExists) {
-            return res.status(403).json({ message: "Post not found" });
-        }
 
         const newOrder = await OrderModel.create({
             name,
             address,
-            post: postID,
+            orderTotal
         });
 
         res.status(200).json(newOrder);
