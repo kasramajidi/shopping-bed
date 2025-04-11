@@ -12,6 +12,7 @@ interface FormData {
 
 interface UserWithTotal extends FormData {
   orderTotal: number;
+  numItemsInCart: number;
 }
 
 interface CheckoutResponse {
@@ -28,6 +29,7 @@ const checkOutApi = async (
         name: user.name,
         address: user.address,
         orderTotal: user.orderTotal,
+        numItemsInCart: user.numItemsInCart
       }
     );
     return responsive.data;
@@ -47,8 +49,9 @@ const schema = yup.object({
 
 interface FormCheckoutProps {
   total: number;
+  totalAmount: number;
 }
-export default function FormCheckout({ total }: FormCheckoutProps) {
+export default function FormCheckout({ total, totalAmount }: FormCheckoutProps) {
   const router = useRouter();
 
   const {
@@ -64,6 +67,7 @@ export default function FormCheckout({ total }: FormCheckoutProps) {
     const userWithTotal = {
       ...user,
       orderTotal: total,
+      numItemsInCart: totalAmount
     };
     checkOutApi(userWithTotal);
     router.push("/Order");

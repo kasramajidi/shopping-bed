@@ -52,7 +52,7 @@ export default function Navbar() {
 
         {/* منو */}
         <nav
-          className={`lg:flex flex-col lg:flex-row lg:gap-5 lg:items-center absolute flex max-w-[250px] lg:static bg-[#F0F6FF] w-full top-20 left-10 lg:w-auto lg:bg-transparent transition-all ${isOpen ? "block" : "hidden"
+          className={`lg:flex flex-col lg:flex-row lg:gap-5 lg:items-center absolute flex w-[463px] lg:static bg-[#F0F6FF] top-20 left-10 lg:w-auto lg:bg-transparent transition-all ${isOpen ? "block" : "hidden"
             }`}
         >
           {isAuthenticated ? (

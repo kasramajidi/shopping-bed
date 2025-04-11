@@ -18,6 +18,7 @@ const schema = new mongoose.Schema({
     },
     numItemsInCart: {
         type: Number,
+        required: true
     },
     orderTotal:{
         type: Number,

@@ -23,8 +23,7 @@ export default function Page() {
   );
 
   const shipping = 500;
-  const totalAmount = cartItems.reduce((acc, item) => acc + item.amount, 0);
-
+  const totalAmount = cartItems.reduce((acc, item) => acc + item.amount, 0);  
   const tax = totalAmount * 1600;
   const total = subtotal + shipping + tax;
 
@@ -36,7 +35,7 @@ export default function Page() {
             place your order
           </h1>
           <div className="flex flex-col sm:flex-row mt-8 items-start gap-8">
-            <FormCheckout total={total} />
+            <FormCheckout total={total} totalAmount={totalAmount}/>
             <TotalAmountCheck
               subtotal={subtotal}
               shipping={shipping}
