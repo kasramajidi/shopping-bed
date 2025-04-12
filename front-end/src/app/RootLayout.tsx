@@ -3,7 +3,8 @@ import { usePathname } from "next/navigation";
 import Register from "@/components/Layout/register";
 import Navbar from "@/components/Layout/Navbar";
 import { AuthProvider } from "../context/AuthContext";
-import {ToastContainer} from "react-toastify"
+import { ThemeProvider } from "../context/ThemeContext";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function RootLayout({
@@ -12,19 +13,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const hideHeader =
-    pathname === "/Login" || pathname === "/Signup";
+  const hideHeader = pathname === "/Login" || pathname === "/Signup";
 
   return (
     <AuthProvider>
-      <html lang="en">
-        <body>
-          {!hideHeader && <Register />}
-          {!hideHeader && <Navbar />} 
-          <ToastContainer/>
-          {children}
-        </body>
-      </html>
+      <ThemeProvider>
+        <html lang="en">
+          <body>
+            {!hideHeader && <Register />}
+            {!hideHeader && <Navbar />}
+            <ToastContainer />
+            {children}
+          </body>
+        </html>
+      </ThemeProvider>
     </AuthProvider>
   );
 }

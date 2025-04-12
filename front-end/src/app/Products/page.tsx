@@ -7,7 +7,7 @@ import ProductListVertical from "@/components/Product/ProductListVertical";
 import Pagination from "@/components/Product/Pagination";
 import Image from "next/image";
 import { IoMenuSharp } from "react-icons/io5";
-
+import { useTheme } from "@/context/ThemeContext";
 interface FilterSearch {
   search: string;
   category: string;
@@ -27,7 +27,7 @@ export default function Page() {
     price: 100000,
     shipping: false,
   });
-
+  const { isDarkMode } = useTheme();
   const { data: products, meta, isLoading } = useSearchPost(filters);
 
   if (isLoading) return <div>Loading...</div>;
@@ -37,8 +37,12 @@ export default function Page() {
   return (
     <div className="max-w-7xl mx-auto px-10 py-18 flex flex-col">
       <SearchBar onFilterChange={setFilters} />
-      <div className="flex justify-between items-center mt-6 sm:mt-8 border-b border-gray-300 pb-4 sm:pb-5">
-        <div className="font-medium text-sm sm:text-md text-[rgb(57,78,106)]">
+      <div className={`flex justify-between items-center mt-6 sm:mt-8 ${isDarkMode ? "dark:border-b border-[rgb(8,9,11)]" :"border-b border-gray-300"} pb-4 sm:pb-5`}>
+        <div
+          className={`font-medium text-sm sm:text-md ${
+            isDarkMode ? "dark:text-white" : "text-[rgb(57,78,106)]"
+          }`}
+        >
           <span>{meta?.pagination.filteredCount}</span> <span>products</span>
         </div>
 
@@ -46,7 +50,11 @@ export default function Page() {
           <button
             className={`w-8 h-8 p-1 flex items-center justify-center rounded-lg transition-all cursor-pointer ${
               isGridView
-                ? "bg-[rgb(226,232,244)]"
+                ? isDarkMode
+                  ? "dark:bg-[rgb(255,80,197)]"
+                  : "bg-[rgb(226,232,244)]"
+                : isDarkMode
+                ? "dark:bg-[rgb(39,41,52)] dark:hover:bg-[rgb(255,80,197)]"
                 : "bg-white hover:bg-[rgb(226,232,244)]"
             }`}
             onClick={() => setIsGridView(true)}
@@ -63,7 +71,11 @@ export default function Page() {
           <button
             className={`w-8 h-8 p-1 flex items-center justify-center rounded-lg transition-all cursor-pointer ${
               isGridView
-                ? "bg-white hover:bg-[rgb(226,232,244)]"
+                ? isDarkMode
+                  ? "dark:bg-[rgb(39,41,52)] dark:hover:bg-[rgb(255,80,197)]"
+                  : "bg-white hover:bg-[rgb(226,232,244)]"
+                : isDarkMode
+                ? "dark:bg-[rgb(255,80,197)]"
                 : "bg-[rgb(226,232,244)]"
             }`}
             onClick={() => setIsGridView(false)}

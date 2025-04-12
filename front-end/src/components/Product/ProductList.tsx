@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { useTheme } from "@/context/ThemeContext";
 
 interface Products {
   _id: string;
@@ -19,6 +20,8 @@ interface ProductListProps {
   isLoading: boolean;
 }
 export default function ProductList({ products, isLoading }: ProductListProps) {
+  const { isDarkMode } = useTheme();
+
   if (isLoading) return <span>Loading...</span>;
   if (!products?.length) return <p>No products found.</p>;
 
@@ -26,7 +29,11 @@ export default function ProductList({ products, isLoading }: ProductListProps) {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 px-6 sm:px-10 md:px-12 pt-8">
       {products.map((item) => (
         <Link key={item._id} href={`/Products/${item._id}`} passHref>
-          <div className="flex cursor-pointer px-4 pt-4 pb-6 flex-col items-center gap-6 shadow-lg hover:shadow-xl transition-all duration-300 rounded-lg bg-white">
+          <div
+            className={`flex cursor-pointer px-4 pt-4 pb-8 flex-col items-center gap-10 shadow-xl hover:shadow-2xl transition duration-300 rounded-lg ${
+              isDarkMode ? "dark:bg-[rgb(39,41,52)]" : "bg-white"
+            }`}
+          >
             <Image
               src={`http://localhost:5500${item.image.path}`}
               width={320}
@@ -36,10 +43,10 @@ export default function ProductList({ products, isLoading }: ProductListProps) {
             />
 
             <div className="flex flex-col items-center gap-1">
-              <h3 className="text-lg sm:text-xl font-semibold text-[rgb(57,78,106)]">
+              <h3 className={`text-xl ${isDarkMode ? "dark:text-[rgb(247,247,241)]" :"text-[rgb(57,78,106)]"}`}>
                 {item.title}
               </h3>
-              <span className="text-[rgb(70,58,161)] text-base sm:text-lg font-medium">
+              <span className={`${isDarkMode ? "dark:text-[rgb(190,148,248)]" : "text-[rgb(70,58,161)]"} text-base sm:text-lg font-medium`}>
                 ${item.price}
               </span>
             </div>
@@ -49,4 +56,3 @@ export default function ProductList({ products, isLoading }: ProductListProps) {
     </div>
   );
 }
-

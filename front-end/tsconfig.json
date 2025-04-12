@@ -20,8 +20,19 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "typeRoots": [
+      "./node_modules/@types",   // برای تایپ‌های پیش‌فرض
+      "./src/types"              // برای تایپ‌های سفارشی که شما اضافه می‌کنید
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/Layout/Navbar.jsx", "src/utils/ProtectedRoute.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/components/Layout/Navbar.jsx",
+    "src/utils/ProtectedRoute.tsx"
+  ],
   "exclude": ["node_modules"]
 }
