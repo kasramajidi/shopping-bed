@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useTheme } from "@/context/ThemeContext";
 
 interface FilterOption {
   search: string;
@@ -21,13 +22,20 @@ export default function SearchBar({ onFilterChange }: searchBarProps) {
   const [order, setOrder] = useState<"a-z" | "z-a" | "high" | "low">("a-z");
   const [price, setPrice] = useState(100000);
   const [shipping, setShipping] = useState(false);
+  const { isDarkMode } = useTheme();
 
   const handelSearch = () => {
     onFilterChange({ search, category, company, order, price, shipping });
   };
 
   return (
-    <section className="text-[rgb(57,78,106)] bg-[rgb(240,246,255)] px-6 sm:px-8 py-6 rounded-lg flex flex-col gap-6 lg:max-w-7xl sm:max-w-6xl lg:mx-0 sm:mx-auto">
+    <section
+      className={`${
+        isDarkMode
+          ? "dark:text-white dark:bg-[rgb(23,25,32)]"
+          : "text-[rgb(57,78,106)] bg-[rgb(240,246,255)]"
+      } px-6 sm:px-8 py-6 rounded-lg flex flex-col gap-6 lg:max-w-7xl sm:max-w-6xl lg:mx-0 sm:mx-auto`}
+    >
       <div className="flex flex-col sm:flex-row items-center sm:items-end justify-between gap-4 w-full">
         <div className="flex flex-col gap-2 text-sm w-full sm:w-1/4">
           <label htmlFor="search">Search Product</label>
@@ -47,7 +55,11 @@ export default function SearchBar({ onFilterChange }: searchBarProps) {
             name="category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className="h-10 pl-3 pr-8 border rounded-lg bg-white cursor-pointer text-black font-semibold border-[rgba(57,78,106)] focus:outline-2 focus:outline-[rgba(57,78,106)]"
+            className={`h-10 pl-3 pr-8 border rounded-lg ${
+              isDarkMode
+                ? "dark:bg-[rgb(23,25,32)] dark:text-white"
+                : "bg-white text-black "
+            } cursor-pointer font-semibold border-[rgba(57,78,106)] focus:outline-2 focus:outline-[rgba(57,78,106)]`}
           >
             <option value="all">All</option>
             <option value="Tables">Tables</option>
@@ -64,7 +76,11 @@ export default function SearchBar({ onFilterChange }: searchBarProps) {
             name="company"
             value={company}
             onChange={(e) => setCompany(e.target.value)}
-            className="h-10 pl-3 pr-8 border rounded-lg bg-white cursor-pointer text-black font-semibold border-[rgba(57,78,106)] focus:outline-2 focus:outline-[rgba(57,78,106)]"
+            className={`h-10 pl-3 pr-8 border rounded-lg ${
+              isDarkMode
+                ? "dark:bg-[rgb(23,25,32)] dark:text-white"
+                : "bg-white text-black "
+            } cursor-pointer font-semibold border-[rgba(57,78,106)] focus:outline-2 focus:outline-[rgba(57,78,106)]`}
           >
             <option value="all">All</option>
             <option value="Modenza">Modenza</option>
@@ -83,7 +99,11 @@ export default function SearchBar({ onFilterChange }: searchBarProps) {
             onChange={(e) =>
               setOrder(e.target.value as "a-z" | "z-a" | "high" | "low")
             }
-            className="h-10 pl-3 pr-8 border rounded-lg bg-white cursor-pointer text-black font-semibold border-[rgba(57,78,106)] focus:outline-2 focus:outline-[rgba(57,78,106)]"
+            className={`h-10 pl-3 pr-8 border rounded-lg ${
+              isDarkMode
+                ? "dark:bg-[rgb(23,25,32)] dark:text-white"
+                : "bg-white text-black "
+            } cursor-pointer font-semibold border-[rgba(57,78,106)] focus:outline-2 focus:outline-[rgba(57,78,106)]`}
           >
             <option value="a-z">A-Z</option>
             <option value="z-a">Z-A</option>
@@ -104,7 +124,9 @@ export default function SearchBar({ onFilterChange }: searchBarProps) {
             name="price"
             min="0"
             max="100000"
-            className="range range-primary"
+            className={`range ${
+              isDarkMode ? "range-secondary" : "range-primary"
+            }`}
             step="1000"
             value={price}
             onChange={(e) => setPrice(Number(e.target.value))}
@@ -120,14 +142,20 @@ export default function SearchBar({ onFilterChange }: searchBarProps) {
             id="shipping"
             type="checkbox"
             name="shipping"
-            className="checkbox checkbox-info"
+            className={`checkbox ${
+              isDarkMode ? "checkbox-secondary" : "checkbox-info"
+            }`}
             checked={shipping}
             onChange={(e) => setShipping(e.target.checked)}
           />
         </div>
         <button
           onClick={handelSearch}
-          className="w-full sm:w-1/4 h-10 cursor-pointer text-white bg-[rgb(5,122,255)] rounded-lg hover:bg-[rgb(4,100,210)] transition"
+          className={`w-full sm:w-1/4 h-10 cursor-pointer ${
+            isDarkMode
+              ? "dark:text-[rgb(48,28,38)] dark:bg-[rgb(255,80,197)] dark:hover:bg-[rgb(255,50,197)]"
+              : "text-white bg-[rgb(5,122,255)] hover:bg-[rgb(4,100,210)] "
+          } rounded-lg transition`}
         >
           Search
         </button>
@@ -142,7 +170,11 @@ export default function SearchBar({ onFilterChange }: searchBarProps) {
               shipping: false,
             })
           }
-          className="w-full sm:w-1/4 h-10 cursor-pointer text-white bg-[rgb(193,73,173)] rounded-lg hover:bg-[rgb(193,30,173)] transition"
+          className={`w-full sm:w-1/4 h-10 cursor-pointer ${
+            isDarkMode
+              ? "dark:text-[rgb(49,38,26)] dark:bg-[rgb(255,183,107)] dark:hover:bg-[rgb(255,153,107)]"
+              : "text-white bg-[rgb(193,73,173)] hover:bg-[rgb(193,30,173)]"
+          } rounded-lg  transition`}
         >
           Reset
         </button>

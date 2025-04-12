@@ -5,7 +5,7 @@ import TotalAmount from "@/components/cart/TotalAmount";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import CartItems from "@/components/cart/CartItems";
-
+import {useTheme} from "@/context/ThemeContext"
 export type CartItemType = {
   id: string;
   title: string;
@@ -28,7 +28,7 @@ export default function CartPage(): JSX.Element {
     cartReducer as React.Reducer<CartItemType[], CartAction>,
     initialState
   );
-
+  const {isDarkMode} = useTheme()
   const { isAuthenticated } = useAuth();
 
   useEffect(() => {
@@ -55,10 +55,10 @@ export default function CartPage(): JSX.Element {
   const total = subtotal + shipping + tax;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-18 flex flex-col text-[rgb(57,78,106)]">
+    <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-18 flex flex-col ${isDarkMode ? "dark:text-[rgb(247,247,241)]" : "text-[rgb(57,78,106)]"}`}>
       {cartItems.length > 0 ? (
         <>
-          <h1 className="text-2xl sm:text-3xl font-bold pb-6 border-b border-[rgb(229,231,235)]">
+          <h1 className={`text-2xl sm:text-3xl font-bold pb-6 border-b ${isDarkMode ? "dark:border-[rgb(8,9,11)]" : "border-[rgb(229,231,235)]"}`}>
             Shopping Cart
           </h1>
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
@@ -72,7 +72,7 @@ export default function CartPage(): JSX.Element {
                 total={total}
               />
 
-              <button className="bg-blue-500  text-white font-semibold w-full sm:w-96 md:w-72 py-3 rounded-xl hover:bg-blue-600 transition-all duration-300">
+              <button className={`${isDarkMode ? "dark:bg-[rgb(255,80,197)] dark:hover:bg-[rgb(255,08,197)]" : "bg-blue-500 hover:bg-blue-600"} uppercase text-white font-semibold w-full sm:w-96 md:w-72 py-3 rounded-xl  transition-all duration-300`}>
                 <Link href={isAuthenticated ? "/Checkout" : "/Login"}>
                   {isAuthenticated ? "Proceed to Checkout" : "Please Login"}
                 </Link>
@@ -81,7 +81,7 @@ export default function CartPage(): JSX.Element {
           </div>
         </>
       ) : (
-        <h1 className="text-2xl sm:text-3xl font-bold pb-6 border-b border-[rgb(229,231,235)]">
+        <h1 className={`text-2xl sm:text-3xl font-bold pb-6 ${isDarkMode ? "dark:border-b border-[rgb(8,9,11)]" :"border-b border-gray-300"}`}>
           Your cart is empty
         </h1>
       )}

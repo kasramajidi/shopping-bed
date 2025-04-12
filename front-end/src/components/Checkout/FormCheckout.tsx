@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
+import {useTheme} from "@/context/ThemeContext"
 interface FormData {
   name: string;
   address: string;
@@ -12,6 +12,7 @@ interface FormData {
 
 interface UserWithTotal extends FormData {
   orderTotal: number;
+  numItemsInCart: number;
 }
 
 interface CheckoutResponse {
@@ -28,6 +29,7 @@ const checkOutApi = async (
         name: user.name,
         address: user.address,
         orderTotal: user.orderTotal,
+        numItemsInCart: user.numItemsInCart
       }
     );
     return responsive.data;
@@ -47,10 +49,11 @@ const schema = yup.object({
 
 interface FormCheckoutProps {
   total: number;
+  totalAmount: number;
 }
-export default function FormCheckout({ total }: FormCheckoutProps) {
+export default function FormCheckout({ total, totalAmount }: FormCheckoutProps) {
   const router = useRouter();
-
+  const {isDarkMode} = useTheme()
   const {
     register,
     handleSubmit,
@@ -64,6 +67,7 @@ export default function FormCheckout({ total }: FormCheckoutProps) {
     const userWithTotal = {
       ...user,
       orderTotal: total,
+      numItemsInCart: totalAmount
     };
     checkOutApi(userWithTotal);
     router.push("/Order");
@@ -83,7 +87,7 @@ export default function FormCheckout({ total }: FormCheckoutProps) {
           {...register("name")}
           type="text"
           id="name"
-          className="px-4 h-12 rounded-lg border border-[rgba(57,78,106,0.2)] focus:outline-2 focus:outline-[rgba(57,78,106,0.2)] focus:outline-offset-2 select-bordered"
+          className={`px-4 h-12 rounded-lg border ${isDarkMode ? "dark:border-[rgb(247,247,241)] dark:focus:outline-[rgb(247,247,241)]" : "border-[rgba(57,78,106,0.2)] focus:outline-[rgba(57,78,106,0.2)]"} focus:outline-2 focus:outline-offset-2 select-bordered`}
         />
         {errors.name && (
           <span className="text-red-600 text-lg">{errors.name.message}!</span>
@@ -96,7 +100,7 @@ export default function FormCheckout({ total }: FormCheckoutProps) {
           {...register("address")}
           type="text"
           id="address"
-          className="px-4 h-12 rounded-lg border border-[rgba(57,78,106,0.2)] focus:outline-2 focus:outline-[rgba(57,78,106,0.2)] focus:outline-offset-2 select-bordered"
+          className={`px-4 h-12 rounded-lg border ${isDarkMode ? "dark:border-[rgb(247,247,241)] dark:focus:outline-[rgb(247,247,241)]" : "border-[rgba(57,78,106,0.2)] focus:outline-[rgba(57,78,106,0.2)]"} focus:outline-2  focus:outline-offset-2 select-bordered`}
         />
         {errors.address && (
           <span className="text-red-600 text-lg">
@@ -107,7 +111,7 @@ export default function FormCheckout({ total }: FormCheckoutProps) {
 
       <button
         type="submit"
-        className="btn btn-primary btn-block text-sm h-12 mt-4 uppercase"
+        className={`btn ${isDarkMode ? "btn-secondary" : "btn-primary"} btn-block text-sm h-12 mt-4 uppercase`}
       >
         place your order
       </button>

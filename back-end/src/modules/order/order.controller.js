@@ -4,9 +4,9 @@ const mongoose = require("mongoose")
 
 exports.createOrder = async (req, res) => {
     try {
-        const { name, address, orderTotal } = req.body;
+        const { name, address, orderTotal, numItemsInCart } = req.body;
 
-        if (!name || !address || !orderTotal) {
+        if (!name || !address) {
             return res.status(400).json({ message: "Please enter name, address, and postID" });
         }
 
@@ -24,7 +24,8 @@ exports.createOrder = async (req, res) => {
         const newOrder = await OrderModel.create({
             name,
             address,
-            orderTotal
+            orderTotal,
+            numItemsInCart
         });
 
         res.status(200).json(newOrder);
