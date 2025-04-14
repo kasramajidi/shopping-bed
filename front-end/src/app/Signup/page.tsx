@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import axios from "axios";
-import { useTheme } from "@/context/ThemeContext";
+import { useTheme } from "./../../context/ThemeContext";
 const schema = yup.object({
   username: yup.string().required().min(3),
   email: yup.string().email().required(),

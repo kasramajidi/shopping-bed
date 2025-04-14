@@ -1,6 +1,6 @@
 "use client";
 import { FaMoon, FaSun } from "react-icons/fa";
-import { useTheme } from "@/context/ThemeContext";
+import { useTheme } from "./../../context/ThemeContext";
 
 export default function ThemeToggle() {
   const { isDarkMode, toggleTheme } = useTheme();

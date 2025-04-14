@@ -9,7 +9,7 @@ import { useMutation, UseMutationResult } from "@tanstack/react-query";
 import axios from "axios";
 import { useAuth } from "@/context/AuthContext";
 import Guest from "@/components/Login/Guest";
-import { useTheme } from "@/context/ThemeContext";
+import { useTheme } from "./../../context/ThemeContext";
 const schema = yup.object({
   email: yup.string().email().required(),
   password: yup

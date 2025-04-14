@@ -3,7 +3,7 @@ import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useTheme } from "@/context/ThemeContext";
+import { useTheme } from "./../../context/ThemeContext";
 interface Product {
   _id: string;
   title: string;

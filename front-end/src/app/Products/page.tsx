@@ -7,7 +7,7 @@ import ProductListVertical from "@/components/Product/ProductListVertical";
 import Pagination from "@/components/Product/Pagination";
 import Image from "next/image";
 import { IoMenuSharp } from "react-icons/io5";
-import { useTheme } from "@/context/ThemeContext";
+import { useTheme } from "./../../context/ThemeContext";
 interface FilterSearch {
   search: string;
   category: string;
@@ -37,7 +37,13 @@ export default function Page() {
   return (
     <div className="max-w-7xl mx-auto px-10 py-18 flex flex-col">
       <SearchBar onFilterChange={setFilters} />
-      <div className={`flex justify-between items-center mt-6 sm:mt-8 ${isDarkMode ? "dark:border-b border-[rgb(8,9,11)]" :"border-b border-gray-300"} pb-4 sm:pb-5`}>
+      <div
+        className={`flex justify-between items-center mt-6 sm:mt-8 ${
+          isDarkMode
+            ? "dark:border-b border-[rgb(8,9,11)]"
+            : "border-b border-gray-300"
+        } pb-4 sm:pb-5`}
+      >
         <div
           className={`font-medium text-sm sm:text-md ${
             isDarkMode ? "dark:text-white" : "text-[rgb(57,78,106)]"

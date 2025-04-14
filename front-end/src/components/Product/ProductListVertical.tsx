@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useTheme } from "@/context/ThemeContext";
+import { useTheme } from "./../../context/ThemeContext";
 
 interface Products {
   _id: string;
