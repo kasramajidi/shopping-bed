@@ -34,6 +34,12 @@ function startServer(){
             } mode on port ${port}`
           );
     })
+
+    setInterval(() => {
+        axios.get("https://shopping-bed-backend.onrender.com")
+            .then(() => console.log("Pinged the server to keep it awake."))
+            .catch(err => console.error("Error pinging server:", err));
+    }, 5 * 60 * 1000);
 }
 
 
