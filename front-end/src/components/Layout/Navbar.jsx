@@ -6,7 +6,7 @@ import { FaMoon } from "react-icons/fa6";
 import { RiShoppingCart2Line } from "react-icons/ri";
 import { useAuth } from "@/context/AuthContext";
 import ThemeToggle from "../Theme/ThemeToggle";
-import { useTheme } from "@/context/ThemeContext"
+import { useTheme } from "./../../context/ThemeContext"
 export default function Navbar() {
   const pathname = usePathname();
   const { isAuthenticated } = useAuth();
@@ -201,7 +201,7 @@ export default function Navbar() {
           <ThemeToggle />
           <Link href="/Cart" className="relative lg:block hidden">
             <RiShoppingCart2Line className="cursor-pointer" />
-            <span className={`${isDarkMode ? "dark:bg-[rgb(255,80,197)]" :"bg-[#0066CC]"} absolute px-1.5 text-white -top-4 rounded-lg -right-3 text-sm`}>
+            <span className={`${isDarkMode ? "dark:bg-[rgb(255,80,197)]" : "bg-[#0066CC]"} absolute px-1.5 text-white -top-4 rounded-lg -right-3 text-sm`}>
               {cartCount}
             </span>
           </Link>

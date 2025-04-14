@@ -1,5 +1,5 @@
 "use client";
-import { useTheme } from "@/context/ThemeContext";
+import { useTheme } from "./../../context/ThemeContext";
 import Link from "next/link";
 
 export default function LeftSide() {
@@ -19,7 +19,9 @@ export default function LeftSide() {
           isDarkMode ? "text-[rgb(247,247,241)]" : "text-[rgb(57,78,106)]"
         } sm:text-xl md:text-xl`}
       >
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore repellat explicabo enim soluta temporibus asperiores aut obcaecati perferendis porro nobis.
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore
+        repellat explicabo enim soluta temporibus asperiores aut obcaecati
+        perferendis porro nobis.
       </span>
       <Link
         href={"/Products"}

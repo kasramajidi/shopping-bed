@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import {useTheme} from "@/context/ThemeContext"
+import { useTheme } from "./../../context/ThemeContext";
 interface TotalAmountProps {
   subtotal: number;
   shipping: number;
@@ -13,9 +13,13 @@ export default function TotalAmountCheck({
   tax,
   total,
 }: TotalAmountProps): JSX.Element {
-  const {isDarkMode} = useTheme()
+  const { isDarkMode } = useTheme();
   return (
-    <div className={`w-full order-1 lg:order-2 sm:w-4/5 md:w-1/2 text-xs  ${isDarkMode ? "dark:bg-[rgb(8,9,11)]" : "bg-blue-50"} p-8 rounded-xl space-y-4 h-fit`}>
+    <div
+      className={`w-full order-1 lg:order-2 sm:w-4/5 md:w-1/2 text-xs  ${
+        isDarkMode ? "dark:bg-[rgb(8,9,11)]" : "bg-blue-50"
+      } p-8 rounded-xl space-y-4 h-fit`}
+    >
       <div className="flex justify-between pb-4 border-b border-[rgb(229,231,235)]">
         <span>Subtotal</span>
         <span>${(subtotal / 100).toFixed(2)}</span>

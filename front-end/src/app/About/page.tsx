@@ -1,12 +1,20 @@
-"use client"
-import { useTheme } from "@/context/ThemeContext";
+"use client";
+import { useTheme } from "./../../context/ThemeContext";
 export default function Page() {
-  const {isDarkMode} = useTheme();
+  const { isDarkMode } = useTheme();
   return (
-    <div className={`max-w-7xl mx-auto flex flex-col items-center px-6 sm:px-10 py-14 sm:py-20 gap-4 ${isDarkMode ? "dark:text-[rgb(247,247,241)]" : "text-[rgb(57,78,106)]"} lg:text-start text-center`}>
+    <div
+      className={`max-w-7xl mx-auto flex flex-col items-center px-6 sm:px-10 py-14 sm:py-20 gap-4 ${
+        isDarkMode ? "dark:text-[rgb(247,247,241)]" : "text-[rgb(57,78,106)]"
+      } lg:text-start text-center`}
+    >
       <h1 className="text-3xl sm:text-5xl md:text-6xl flex flex-wrap items-center gap-3 font-bold leading-none tracking-tight">
         We love
-        <span className={`text-3xl sm:text-5xl text-[rgb(219,225,255)] font-bold px-5 sm:px-6 py-3 sm:py-4 rounded-2xl ${isDarkMode ? "dark:bg-[rgb(255,80,197)]" : "bg-[rgb(5,122,255)]"}`}>
+        <span
+          className={`text-3xl sm:text-5xl text-[rgb(219,225,255)] font-bold px-5 sm:px-6 py-3 sm:py-4 rounded-2xl ${
+            isDarkMode ? "dark:bg-[rgb(255,80,197)]" : "bg-[rgb(5,122,255)]"
+          }`}
+        >
           comfy
         </span>
       </h1>

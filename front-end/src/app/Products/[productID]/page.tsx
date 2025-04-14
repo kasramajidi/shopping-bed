@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import AddToCartButton from "@/components/Product/AddToCartButton";
-import { useTheme } from "@/context/ThemeContext";
+import { useTheme } from "./../../context/ThemeContext";
 
 interface Product {
   title: string;
