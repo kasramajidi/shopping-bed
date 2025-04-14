@@ -18,18 +18,30 @@ export default function CartItems({
       {cartItems.map((item) => (
         <div
           key={item.id}
-          className={`flex flex-col  lg:flex-row items-start gap-6 pb-6 border-b ${isDarkMode ? "dark:border-[rgb(8,9,11)]" : "border-[rgb(229,231,235)]"} p-4 mt-8 justify-between`}
+          className={`flex flex-col  lg:flex-row items-start gap-6 pb-6 border-b ${
+            isDarkMode
+              ? "dark:border-[rgb(8,9,11)]"
+              : "border-[rgb(229,231,235)]"
+          } p-4 mt-8 justify-between`}
         >
           <Image
             width={96}
             height={96}
-            src={`http://localhost:5500${item.image?.path || ""}`}
+            src={`https://shopping-bed-backend.onrender.com${
+              item.image?.path || ""
+            }`}
             alt={item.title}
             className="w-32 h-32 rounded-lg object-cover"
           />
           <div className="flex flex-col gap-4">
             <h2 className="font-semibold text-lg">{item.title}</h2>
-            <p className={`text-sm ${isDarkMode ? "dark:text-gray-300" : "text-gray-500"}`}>{item.company}</p>
+            <p
+              className={`text-sm ${
+                isDarkMode ? "dark:text-gray-300" : "text-gray-500"
+              }`}
+            >
+              {item.company}
+            </p>
             <div className="flex items-center gap-2 mt-1">
               <span>Color:</span>
               <span
@@ -39,11 +51,20 @@ export default function CartItems({
             </div>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <label htmlFor="amount" className={`${isDarkMode ? "dark:text-gray-300" : "text-[rgb(57,78,106)]"} text-sm`}>
+            <label
+              htmlFor="amount"
+              className={`${
+                isDarkMode ? "dark:text-gray-300" : "text-[rgb(57,78,106)]"
+              } text-sm`}
+            >
               Amount
             </label>
             <select
-              className={`select ${isDarkMode ? "dark:bg-[rgb(39,41,52)] dark:text-white" : "bg-white text-black"} pl-2 pr-5 cursor-pointer w-[50px] lg:h-6 sm:h-12 rounded-xl border border-[rgba(57,78,106,0.2)] focus:outline-2 focus:outline-[rgba(57,78,106,0.2)] focus:outline-offset-2 select-bordered`}
+              className={`select ${
+                isDarkMode
+                  ? "dark:bg-[rgb(39,41,52)] dark:text-white"
+                  : "bg-white text-black"
+              } pl-2 pr-5 cursor-pointer w-[50px] lg:h-6 sm:h-12 rounded-xl border border-[rgba(57,78,106,0.2)] focus:outline-2 focus:outline-[rgba(57,78,106,0.2)] focus:outline-offset-2 select-bordered`}
               id="amount"
               value={item.amount}
               onChange={(e) => {
@@ -75,7 +96,11 @@ export default function CartItems({
               ))}
             </select>
             <button
-              className={`${isDarkMode ? "dark:text-[rgb(255,80,197)]" : "text-[rgb(5,122,255)]"} text-sm hover:underline cursor-pointer`}
+              className={`${
+                isDarkMode
+                  ? "dark:text-[rgb(255,80,197)]"
+                  : "text-[rgb(5,122,255)]"
+              } text-sm hover:underline cursor-pointer`}
               onClick={() => {
                 dispatch({ type: "REMOVE", payload: item.id });
                 const updatedCart = cartItems.filter((i) => i.id !== item.id);

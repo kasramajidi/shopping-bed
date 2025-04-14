@@ -30,7 +30,9 @@ interface FilterSearch {
 }
 
 const getApiPost = async (): Promise<{ attributes: Post[]; meta: Meta }> => {
-  const response = await axios.get("http://localhost:5500/posts/all-Post");
+  const response = await axios.get(
+    "https://shopping-bed-backend.onrender.com/posts/all-Post"
+  );
   return response.data;
 };
 
@@ -38,34 +40,36 @@ export default function useSearchPost(filters: FilterSearch) {
   const { data, isLoading } = useQuery({
     queryKey: ["allPosts", filters],
     queryFn: getApiPost,
-
   });
 
-  const filteredData = data?.attributes?.filter((item) => {
-    let isMatch = true;
+  const filteredData =
+    data?.attributes?.filter((item) => {
+      let isMatch = true;
 
-    if (filters.search) {
-      isMatch = item.title.toLowerCase().includes(filters.search.toLowerCase());
-    }
+      if (filters.search) {
+        isMatch = item.title
+          .toLowerCase()
+          .includes(filters.search.toLowerCase());
+      }
 
-    if (filters.category !== "all" && item.category !== filters.category) {
-      isMatch = false;
-    }
+      if (filters.category !== "all" && item.category !== filters.category) {
+        isMatch = false;
+      }
 
-    if (filters.company !== "all" && item.company !== filters.company) {
-      isMatch = false;
-    }
+      if (filters.company !== "all" && item.company !== filters.company) {
+        isMatch = false;
+      }
 
-    if (filters.price && item.price > filters.price) {
-      isMatch = false;
-    }
+      if (filters.price && item.price > filters.price) {
+        isMatch = false;
+      }
 
-    if (filters.shipping && !item.shipping) {
-      isMatch = false;
-    }
+      if (filters.shipping && !item.shipping) {
+        isMatch = false;
+      }
 
-    return isMatch;
-  }) || [];
+      return isMatch;
+    }) || [];
 
   const sortedData = [...filteredData].sort((a, b) => {
     if (filters.order === "a-z") {
@@ -80,5 +84,14 @@ export default function useSearchPost(filters: FilterSearch) {
     return 0;
   });
 
-  return { data: sortedData, meta: { pagination: { filteredCount: sortedData.length, totalPage: Math.ceil(sortedData.length / 10)} }, isLoading };
+  return {
+    data: sortedData,
+    meta: {
+      pagination: {
+        filteredCount: sortedData.length,
+        totalPage: Math.ceil(sortedData.length / 10),
+      },
+    },
+    isLoading,
+  };
 }
