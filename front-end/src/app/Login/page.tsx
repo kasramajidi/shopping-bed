@@ -32,10 +32,13 @@ interface LoginResponse {
 
 const LoginApi = async (user: Data): Promise<LoginResponse> => {
   try {
-    const response = await axios.post("http://localhost:5500/auth/login", {
-      email: user.email,
-      password: user.password,
-    });
+    const response = await axios.post(
+      "https://shopping-bed-backend.onrender.com/auth/login",
+      {
+        email: user.email,
+        password: user.password,
+      }
+    );
     return response.data;
   } catch (err) {
     console.log(err);
@@ -132,7 +135,11 @@ export default function Page() {
             {...register("password")}
             type="password"
             id="password"
-            className={`flex-shrink-1 rounded-lg px-4 py-2 border ${isDarkMode ? "dark:border-[rgb(247,247,241)] dark:focus:outline-[rgb(247,247,241)] dark:text-white" : "border-[rgba(57,78,106,0.2)] text-[rgb(57,78,106)] focus:outline-[rgba(57,78,106,0.2)]"} focus:outline-2 focus:outline-offset-2`}
+            className={`flex-shrink-1 rounded-lg px-4 py-2 border ${
+              isDarkMode
+                ? "dark:border-[rgb(247,247,241)] dark:focus:outline-[rgb(247,247,241)] dark:text-white"
+                : "border-[rgba(57,78,106,0.2)] text-[rgb(57,78,106)] focus:outline-[rgba(57,78,106,0.2)]"
+            } focus:outline-2 focus:outline-offset-2`}
           />
           {errors.password && (
             <span className="text-red-600 text-lg">
@@ -142,7 +149,11 @@ export default function Page() {
         </div>
         <button
           type="submit"
-          className={`${isDarkMode ? "dark:bg-[rgb(255,122,197)] dark:text-black dark:hover:bg-[rgb(255,100,197)]" : "bg-[#0070E0] text-[#EBEEFF]"} w-full rounded-lg cursor-pointer text-center  py-3 px-4`}
+          className={`${
+            isDarkMode
+              ? "dark:bg-[rgb(255,122,197)] dark:text-black dark:hover:bg-[rgb(255,100,197)]"
+              : "bg-[#0070E0] text-[#EBEEFF]"
+          } w-full rounded-lg cursor-pointer text-center  py-3 px-4`}
         >
           Login
         </button>

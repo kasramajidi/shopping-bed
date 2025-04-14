@@ -18,7 +18,7 @@ export default function Page() {
   const getApi = async () => {
     try {
       const responsive = await axios.get(
-        "http://localhost:5500/orders/get-all-order"
+        "https://shopping-bed-backend.onrender.com/orders/get-all-order"
       );
       setData(responsive.data);
     } catch (err) {

@@ -35,7 +35,7 @@ export default function ProductList({ products, isLoading }: ProductListProps) {
             }`}
           >
             <Image
-              src={`http://localhost:5500${item.image.path}`}
+              src={`https://shopping-bed-backend.onrender.com${item.image.path}`}
               width={320}
               height={180}
               alt={item.title}
@@ -43,10 +43,22 @@ export default function ProductList({ products, isLoading }: ProductListProps) {
             />
 
             <div className="flex flex-col items-center gap-1">
-              <h3 className={`text-xl ${isDarkMode ? "dark:text-[rgb(247,247,241)]" :"text-[rgb(57,78,106)]"}`}>
+              <h3
+                className={`text-xl ${
+                  isDarkMode
+                    ? "dark:text-[rgb(247,247,241)]"
+                    : "text-[rgb(57,78,106)]"
+                }`}
+              >
                 {item.title}
               </h3>
-              <span className={`${isDarkMode ? "dark:text-[rgb(190,148,248)]" : "text-[rgb(70,58,161)]"} text-base sm:text-lg font-medium`}>
+              <span
+                className={`${
+                  isDarkMode
+                    ? "dark:text-[rgb(190,148,248)]"
+                    : "text-[rgb(70,58,161)]"
+                } text-base sm:text-lg font-medium`}
+              >
                 ${item.price}
               </span>
             </div>

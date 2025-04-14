@@ -34,11 +34,14 @@ interface ApiResponse {
 
 const registerApi = async (user: Data): Promise<ApiResponse> => {
   try {
-    const response = await axios.post("http://localhost:5500/auth/register", {
-      username: user.username,
-      email: user.email,
-      password: user.password,
-    });
+    const response = await axios.post(
+      "https://shopping-bed-backend.onrender.com/auth/register",
+      {
+        username: user.username,
+        email: user.email,
+        password: user.password,
+      }
+    );
     return response.data;
   } catch (err) {
     console.log(err);

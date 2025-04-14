@@ -37,7 +37,7 @@ export default function Page() {
 
   const fetchProduct = async (id: string): Promise<Product> => {
     const response = await axios.get(
-      `http://localhost:5500/posts/getpost/${id}`
+      `https://shopping-bed-backend.onrender.com/posts/getpost/${id}`
     );
     return response.data;
   };
@@ -81,7 +81,7 @@ export default function Page() {
       {data ? (
         <div className="flex flex-col sm:flex-row items-center sm:items-start mt-6 gap-10 sm:gap-16">
           <Image
-            src={`http://localhost:5500${data.image.path}`}
+            src={`https://shopping-bed-backend.onrender.com${data.image.path}`}
             width={384}
             height={382}
             className="w-full sm:w-1/2 h-80 sm:h-96 object-cover rounded-lg"
@@ -146,7 +146,11 @@ export default function Page() {
                 Amount
               </label>
               <select
-                className={`select ${isDarkMode ? "dark:bg-[rgb(39,41,52)] text-white": "bg-white text-black"} pl-4 pr-10 h-10 sm:h-12 rounded-xl border border-[rgb(70,58,161)] focus:outline-2 focus:outline-[rgb(70,58,161)] focus:outline-offset-2 select-bordered`}
+                className={`select ${
+                  isDarkMode
+                    ? "dark:bg-[rgb(39,41,52)] text-white"
+                    : "bg-white text-black"
+                } pl-4 pr-10 h-10 sm:h-12 rounded-xl border border-[rgb(70,58,161)] focus:outline-2 focus:outline-[rgb(70,58,161)] focus:outline-offset-2 select-bordered`}
                 value={selectAmount}
                 onChange={handelSubmitChange}
               >
