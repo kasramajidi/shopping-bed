@@ -32,4 +32,9 @@ postRouter
 postRouter
     .route("/getpost/:id")
     .get(postController.getOne)
+
+postRouter
+    .route("/update-image/:id")
+    .put(upload.single("image"), postController.updateImage)
+
 module.exports = postRouter;

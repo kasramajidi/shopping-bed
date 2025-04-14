@@ -27,9 +27,7 @@ export default function CartItems({
           <Image
             width={96}
             height={96}
-            src={`https://shopping-bed-backend.onrender.com${
-              item.image?.path || ""
-            }`}
+            src={`https://res.cloudinary.com/dkvbdk078/image/upload/v1681234567/${item.image?.path}`}
             alt={item.title}
             className="w-32 h-32 rounded-lg object-cover"
           />

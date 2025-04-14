@@ -60,7 +60,7 @@ export default function Featured() {
                 }`}
               >
                 <Image
-                  src={`https://shopping-bed-backend.onrender.com${item.image.path}`}
+                  src={`https://res.cloudinary.com/dkvbdk078/image/upload/v1681234567/${item.image.path}`}
                   width={320}
                   height={180}
                   alt="Product image"

@@ -81,7 +81,7 @@ export default function Page() {
       {data ? (
         <div className="flex flex-col sm:flex-row items-center sm:items-start mt-6 gap-10 sm:gap-16">
           <Image
-            src={`https://shopping-bed-backend.onrender.com${data.image.path}`}
+            src={`https://res.cloudinary.com/dkvbdk078/image/upload/v1681234567/${data.image.path}`}
             width={384}
             height={382}
             className="w-full sm:w-1/2 h-80 sm:h-96 object-cover rounded-lg"

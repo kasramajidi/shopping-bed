@@ -9,7 +9,6 @@ exports.createPost = async (req, res) => {
             return res.status(400).json({ message: "Please upload an image" });
         }
 
-        const imageUrl = `/images/posts/${req.file.filename}`; // مسیر ذخیره شده در دیتابیس
 
         const newPost = new PostModel({
             title,
@@ -19,7 +18,7 @@ exports.createPost = async (req, res) => {
             price,
             image: {
                 filename: req.file.filename,
-                path: imageUrl,
+                path: req.file.filename,
             },
         });
 
@@ -187,12 +186,7 @@ exports.getfeatured = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const {
-            title,
-            company,
-            description,
-            category,
-            price,
-            colors,
+            image
         } = req.body
 
         const id = req.params.id;
@@ -231,5 +225,34 @@ exports.getOne = async (req, res) => {
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: 'Internal Server Error' });
+    }
+}
+
+exports.updateImage = async (req, res) => {
+    try {
+        const {
+            image
+        } = req.body
+
+        const id = req.params.id;
+
+        if (!mongoose.Types.ObjectId.isValid(id)) {
+            return res.status(402).json({ message: "Invalid ID format" });
+        }
+        const updatePost = await PostModel.findByIdAndUpdate({ _id: id }, {
+            image: {
+                filename: req.file.filename,
+                path: req.file.filename,
+            },
+        },{ new: true })
+
+
+        res.status(200).json({
+            message: "This post has been successfully update",
+            updatePost
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 }
