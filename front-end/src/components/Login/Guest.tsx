@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "./../../context/AuthContext";
 import { useTheme } from "./../../context/ThemeContext";
 export default function Guest() {
   const { isDarkMode } = useTheme();

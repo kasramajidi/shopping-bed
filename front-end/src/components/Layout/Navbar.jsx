@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { FaMoon } from "react-icons/fa6";
 import { RiShoppingCart2Line } from "react-icons/ri";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "./../../context/AuthContext";
 import ThemeToggle from "../Theme/ThemeToggle";
 import { useTheme } from "./../../context/ThemeContext"
 export default function Navbar() {

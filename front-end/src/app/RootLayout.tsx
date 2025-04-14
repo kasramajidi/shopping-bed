@@ -1,7 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
-import Register from "@/components/Layout/register";
-import Navbar from "@/components/Layout/Navbar";
+import Register from "./../components/Layout/Register";
+import Navbar from "./../components/Layout/Navbar";
 import { AuthProvider } from "../context/AuthContext";
 import { ThemeProvider } from "../context/ThemeContext";
 import { ToastContainer } from "react-toastify";

@@ -1,10 +1,10 @@
 "use client";
 import { JSX, useEffect, useReducer } from "react";
 import { cartReducer, initialState } from "../../components/cart/CartReducer";
-import TotalAmount from "@/components/cart/TotalAmount";
+import TotalAmount from "./../../components/cart/TotalAmount";
 import Link from "next/link";
-import { useAuth } from "@/context/AuthContext";
-import CartItems from "@/components/cart/CartItems";
+import { useAuth } from "./../../context/AuthContext";
+import CartItems from "./../../components/cart/CartItems";
 import { useTheme } from "./../../context/ThemeContext";
 export type CartItemType = {
   id: string;

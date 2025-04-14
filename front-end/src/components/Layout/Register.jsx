@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { useAuth } from "@/context/AuthContext"
+import { useAuth } from "./../../context/AuthContext"
 import Logout from "../Logout/Logout"
 import { useTheme } from "./../../context/ThemeContext"
 export default function register() {

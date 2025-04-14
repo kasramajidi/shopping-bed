@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { CartItemType, CartAction } from "@/app/Cart/page";
+import { CartItemType, CartAction } from "./../../app/Cart/page";
 import { toast } from "react-toastify";
 import { JSX } from "react";
 import { useTheme } from "./../../context/ThemeContext";

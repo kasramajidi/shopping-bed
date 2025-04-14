@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "./../../context/AuthContext";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useTheme } from "./../../context/ThemeContext";

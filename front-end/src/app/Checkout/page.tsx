@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import FormCheckout from "@/components/Checkout/FormCheckout";
-import TotalAmountCheck from "@/components/Checkout/TotalAmountCheck";
+import FormCheckout from "./../../components/Checkout/FormCheckout";
+import TotalAmountCheck from "./../../components/Checkout/TotalAmountCheck";
 import { useTheme } from "./../../context/ThemeContext";
 interface CartItem {
   price: number;

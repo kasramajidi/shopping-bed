@@ -1,6 +1,6 @@
-import LeftSide from "@/components/home/LeftSide";
-import ImageHome from "@/components/home/ImageHome";
-import Featured from "@/components/home/Featured";
+import LeftSide from "./../../components/home/LeftSide";
+import ImageHome from "./../../components/home/ImageHome";
+import Featured from "./../../components/home/Featured";
 
 export default function Home() {
   return (

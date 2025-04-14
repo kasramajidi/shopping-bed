@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import TableOrder from "@/components/Order/TableOrder";
+import TableOrder from "./../../components/Order/TableOrder";
 import { useTheme } from "./../../context/ThemeContext";
 interface Order {
   _id: string;

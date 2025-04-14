@@ -1,10 +1,10 @@
 "use client";
 import { useState } from "react";
-import SearchBar from "@/components/Product/SearchBar";
-import ProductList from "@/components/Product/ProductList";
-import useSearchPost from "@/components/Product/useSearchPost";
-import ProductListVertical from "@/components/Product/ProductListVertical";
-import Pagination from "@/components/Product/Pagination";
+import SearchBar from "./../../components/Product/SearchBar";
+import ProductList from "./../../components/Product/ProductList";
+import useSearchPost from "./../../components/Product/useSearchPost";
+import ProductListVertical from "./../../components/Product/ProductListVertical";
+import Pagination from "./../../components/Product/Pagination";
 import Image from "next/image";
 import { IoMenuSharp } from "react-icons/io5";
 import { useTheme } from "./../../context/ThemeContext";

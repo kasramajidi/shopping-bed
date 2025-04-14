@@ -1,5 +1,5 @@
 // تایپ‌ها
-import { CartItemType } from "@/app/Cart/page";
+import { CartItemType } from "./../../app/Cart/page";
 
 export const initialState: CartItemType[] = [];
 
